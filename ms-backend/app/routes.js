@@ -15,7 +15,7 @@ module.exports = function (app) {
 			if (err) {
 				res.send(err);
 			}
-			res.send({data:docs}); // return all workouts in JSON format
+			res.send({data:posts}); // return all workouts in JSON format
 		});
 	});
 
