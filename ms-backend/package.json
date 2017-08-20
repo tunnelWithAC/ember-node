@@ -1,0 +1,15 @@
+{
+  "name": "ms-backend",
+  "version": "0.0.1",
+  "description": "Backend for ember mongo sample project.",
+  "main": "server.js",
+  "author": "Conall",
+  "dependencies": {
+    "body-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "method-override": "^2.1.3",
+    "mongodb": "^2.2.30",
+    "mongoose": "^4.4.12",
+    "morgan": "^1.1.1"
+  }
+}
