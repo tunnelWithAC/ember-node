@@ -1,0 +1,9 @@
+<div class="wrapper form-signin">
+  <br>
+  <h3>Registration Form</h3><br>
+  {{paper-input class="flex-80" label="Name" value=name onChange=(action (mut name))}}<br>
+  {{paper-input class="flex-80" label="E-mail" type="email" value=email onChange=(action (mut email))}}<br>
+  {{paper-input class="flex-80" label="Password" type="password" value=password onChange=(action (mut password))}}<br>
+  {{paper-input class="flex-80" label="Confirm Password" type="password" value=confPassword onChange=(action (mut confPassword))}}
+  {{#paper-button raised=true onClick=(action "")}}Register{{/paper-button}}
+</div>

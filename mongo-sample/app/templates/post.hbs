@@ -1,6 +1,32 @@
 <div class="container">
+	<br>
+	<div class="main-content">
+		<div class="row">
+
+			<div class="col-sm-12" style="margin:10px;">
+				<br>
+				{{paper-input class="flex-150" maxlength=150 label="Name" value=post onChange=(action (mut post))}}
+				<button {{action "addPost"}}>Add post</button>
+			</div>
+		</div>
+	</div>
+	<br>
 	{{#each model as |item|}}
-	{{item.title}}
-{{/each}}
-{{yield}}
+	<div class="main-content">
+		<div class="row">
+			{{log item.content}}
+			<div class="col-sm-8"><span class="post">{{{item.content}}}</span></div>
+			<div class="col-sm-2">#votes </div>
+			<div class="col-sm-2"></div>
+			<hr>
+			<div class="col-sm-8"><small class="post">Posted by: {{item.author}}</small></div>
+			<div class="col-sm-2">+  -</div>
+			<div class="col-sm-2">{{item.votes}}</div>
+		</div>
+	</div>
+	<br>
+
+	<br>
+	{{/each}}
+	{{yield}}
 </div>

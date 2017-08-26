@@ -8,7 +8,6 @@ export default DS.RESTSerializer.extend({
     //payload.data.attributes.currency = payload.data.attributes.cost.currency;
     //delete payload.data.attributes.cost;
     payload = { notes: payload.data };
-		console.log(payload);
     return this._super(store, primaryModelClass, payload, id, requestType);
   },
   normalizeSingleResponse(store, primaryModelClass, payload, id) {

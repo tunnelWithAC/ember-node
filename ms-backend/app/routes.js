@@ -7,15 +7,31 @@ module.exports = function (app) {
 	});
 
 	function getPosts(res) {
-
-	};
-
-	app.get('/api/posts', function(req,res) {
 		post.find(function (err, posts) {
 			if (err) {
 				res.send(err);
 			}
 			res.send({data:posts}); // return all workouts in JSON format
+		});
+	};
+
+	app.get('/api/posts', function(req,res) {
+		getPosts(res);
+	});
+
+	app.post('/api/posts', function (req, res) {
+		console.log(req.body);
+
+		post.create({
+			//title: req.body.post.title,
+			content: req.body.post.content,
+			author: req.body.post.author,
+			votes: 0
+		}, function (err) {
+			if (err)
+				res.send(err);
+			// get and return all the todos after you create another
+			console.log("Post Created:" + req.body.post.content);
 		});
 	});
 
@@ -25,38 +41,8 @@ module.exports = function (app) {
 				res.send(err);
 			}
 			else {
-				console.log(docs);
 				res.send({data:docs});
 			}
 		});
 	});
-	/*app.post('/api/post', function (req, res) {
-
-		post.create({
-			name: req.body.name
-		},
-
-		done: false
-	}), function (err, workout) {
-		if (err)
-		res.send(err);
-
-		// get and return all the todos after you create another
-		getPosts(res);
-	});
-	//getWorkouts(res);
-	});
-
-	app.delete('/api/workout/:workout_id', function (req, res) {
-	Workout.remove({
-		_id: req.params.workout_id
-	}, function (err, workout) {
-		if (err)
-		res.send(err);
-
-		getWorkouts(res);
-	});
-	});*/
-
-
 };

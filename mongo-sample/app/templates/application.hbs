@@ -1,16 +1,16 @@
 {{#paper-toolbar}}
   <div class="md-toolbar-tools">
     {{#paper-button action=(transition-to 'home')}}{{paper-icon 'home'}}Home{{/paper-button}}
-    {{#link-to "post" }}{{#paper-button}}Get Started{{/paper-button}}{{/link-to}}
+    {{#link-to "post" }}{{#paper-button}}Posts{{/paper-button}}{{/link-to}}
     {{#paper-button action=(transition-to 'dashboard')}}My Courses{{/paper-button}}
-		
+
     <div class="paper-right">
       {{paper-icon 'person'}}
       {{#if session.currentUser}}
         {{#paper-button action='logout'}}Logout{{/paper-button}}
       {{else}}
-        {{#paper-button action=(transition-to 'login')}}Login{{/paper-button}}
-        {{#paper-button action=(transition-to 'register')}}Register{{/paper-button}}
+        {{#link-to "login" }}{{#paper-button}}Login{{/paper-button}}{{/link-to}}
+        {{#link-to "register" }}{{#paper-button}}Register{{/paper-button}}{{/link-to}}
       {{/if}}
     </div>
   </div>
