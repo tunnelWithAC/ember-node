@@ -6,7 +6,7 @@
 
     <div class="paper-right">
       {{paper-icon 'person'}}
-      {{#if session.currentUser}}
+      {{#if session.isAuthenticated}}
         {{#paper-button action='logout'}}Logout{{/paper-button}}
       {{else}}
         {{#link-to "login" }}{{#paper-button}}Login{{/paper-button}}{{/link-to}}

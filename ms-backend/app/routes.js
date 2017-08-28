@@ -1,7 +1,20 @@
 var NoteModel = require('./models/note');
 var post = require('./models/post');
 
+
 module.exports = function (app) {
+	app.post('/token', function(req, res){
+		if(req.body.grant_type === 'password'){
+			if(req.body.password === 'conall'){
+				res.status(200).send(' { "access_token" : "secret_token" }');
+			} else {
+				res.status(400).send(' { "error" : "invalid_grant" }');
+			}
+		}	else {
+			res.status(400).send(' { "error" : "unsupported_grant_type" }');
+		}
+	});
+
 	app.get('/api/',function(req,res) {
 		res.send('Working');
 	});
