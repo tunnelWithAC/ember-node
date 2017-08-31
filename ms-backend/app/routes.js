@@ -3,6 +3,22 @@ var post = require('./models/post');
 
 
 module.exports = function (app) {
+	/*
+	10.34
+	app.use(bodyParser.urlencoded({extended: true}));
+
+	app.get('/api/students', function(rep, res){
+		if(req.headers.authorization !== 'Bearer secretcode/ secret_token'){
+		return res.status(401).send('Unauthorized');
+	}
+		return res.status(200).send({
+		students: [
+		{ id:1, name:'Conall'},
+		{ id: 2, name:'Erik'}
+	]
+	})
+	});
+	*/
 	app.post('/token', function(req, res){
 		if(req.body.grant_type === 'password'){
 			if(req.body.password === 'conall'){
