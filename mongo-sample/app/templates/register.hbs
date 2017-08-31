@@ -5,5 +5,5 @@
   {{paper-input class="flex-80" label="E-mail" type="email" value=email onChange=(action (mut email))}}<br>
   {{paper-input class="flex-80" label="Password" type="password" value=password onChange=(action (mut password))}}<br>
   {{paper-input class="flex-80" label="Confirm Password" type="password" value=confPassword onChange=(action (mut confPassword))}}
-  {{#paper-button raised=true onClick=(action "")}}Register{{/paper-button}}
+  {{#paper-button raised=true onClick=(action "register")}}Register{{/paper-button}}
 </div>

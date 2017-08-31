@@ -3,15 +3,19 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
 
-  loginName: null,
-  password: null,
+  name: 'username',
+  password: 'conall',
   actions: {
     authenticate(){
+      //_id: 59a86cc8d6c7b55b6898d00d
+      var user = this.store.find('user', '59a86cc8d6c7b55b6898d00d');
+      console.log(user);
+      
       this.get('session').authenticate(
-        this.get('loginName'),
+        this.get('name'),
         this.get('password')).then( ()=> {
-          alert('Logged in');
-          //this.transitionTo('post');
+
+          this.transitionToRoute('post');
         }, (err) => {
           alert("Error: " + err.responseText);
         });

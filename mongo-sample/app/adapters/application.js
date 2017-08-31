@@ -3,10 +3,10 @@ import DS from 'ember-data';
 export default DS.RESTAdapter.extend({
 	namespace: 'api',
 	session: Ember.inject.service(),
-	headers: Ember.computed('session.token', function(){
+	/*headers: Ember.computed('session.token', function(){
 		return{
 			'Authorization': `Bearer ${this.get('session.token')}`
 		}
-	}),
+	}),*/
 	host: 'http://localhost:8081'
 });
