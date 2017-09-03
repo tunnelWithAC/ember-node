@@ -3,10 +3,10 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   //ajax: Ember.inject.service(),
-  post: "there is a #hashtag somewhere #here",
+  post: "testing image upload",
   actions: {
     addPost() {
-      var text = this.get('post');
+      /*var text = this.get('post');
       var length = 0;
       var pos = text.indexOf("#");
       var hashtag ="";
@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
       console.log("Lenght", this.get('post').length);
       while(pos < this.get('post').length){
 
-        while(text.charAt(pos) !== " " /*&& text.charAt(pos) !== "&"*/){
+        while(text.charAt(pos) !== " " ){
           hashtag += text.charAt(pos);
           console.log(text.charAt(pos));
           console.log(pos);
@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
 
         break;
       }
-      /*if(text.indexOf("#") !== -1){
+      if(text.indexOf("#") !== -1){
         var index = text.indexOf("#");
         while(text.charAt(index) !== " "){
           length++;
@@ -44,13 +44,15 @@ export default Ember.Controller.extend({
         text = text.replace(text.substr(11, length), "<a href=''>" + text.substr(11, length) + "</a>");
       }*/
 
+      var file = document.getElementById('file-field').files[0];
 
-      /*var post = this.store.createRecord('post', {
-        content: text,
-        author: '26 Aug',
+      var post = this.store.createRecord('post', {
+        content: this.get('post'),
+        image: file,
+        author: '2 Sept',
         votes: 0
       });
-      post.save();*/
+      post.save();
 
     }
   }

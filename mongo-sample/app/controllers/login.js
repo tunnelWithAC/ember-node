@@ -2,22 +2,22 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
-
-  name: 'username',
   password: 'conall',
+  errorMessage: '',
   actions: {
     authenticate(){
       //_id: 59a86cc8d6c7b55b6898d00d
-      var user = this.store.find('user', '59a86cc8d6c7b55b6898d00d');
-      console.log(user);
-      
-      this.get('session').authenticate(
-        this.get('name'),
-        this.get('password')).then( ()=> {
+      //var user = this.store.find('user', '59a86cc8d6c7b55b6898d00d');
+      //console.log(user);
 
-          this.transitionToRoute('post');
+      this.get('session').authenticate(
+        this.get('email'),
+        this.get('password')).then( (response)=> {
+          console.log("response: ", response);
+          //this.transitionToRoute('post');
         }, (err) => {
-          alert("Error: " + err.responseText);
+          this.set('errorMessage', err.responseText);
+          //alert("Error: " + err.responseText);
         });
     },
     login() {

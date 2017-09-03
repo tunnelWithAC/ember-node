@@ -5,7 +5,11 @@
 
 			<div class="col-sm-12" style="margin:10px;">
 				<br>
-				{{paper-input class="flex-150" maxlength=150 label="Name" value=post onChange=(action (mut post))}}
+
+				{{paper-input class="" maxlength=256 label="Name" value=post onChange=(action (mut post)) style="width:100%"}}
+				<br>
+				<p>{{input valueBinding='file' type='file' id='file-field'}} <img src="{{model.imageUrl}}" id="preview-image" class="small-image" /></p>
+
 				<button {{action "addPost"}}>Add post</button>
 			</div>
 		</div>
@@ -21,6 +25,7 @@
 			<div class="col-sm-8"><small class="post">Posted by: {{item.author}}</small></div>
 			<div class="col-sm-2">+  -</div>
 			<div class="col-sm-2">{{item.votes}}</div>
+			<img src="{{model.imageUrl}}" class="small-image" />
 		</div>
 	</div>
 	<br>
