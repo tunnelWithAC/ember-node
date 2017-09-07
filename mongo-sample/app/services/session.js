@@ -19,14 +19,11 @@ export default Ember.Service.extend({
       }
     }).then((info) => {
       this.set('token', info.data.access_token);
-      console.log(info);
+      this.set('userID', info.data.user.id);
       //this.set('client_key', info.client_key);
-      console.log(info.data.access_token);
+      console.log(info.data);
       this.set('isAuthenticated', true );
-      console.log('param', log);
-      //var currentUser = this.store.query({
-        //email: ,
-      //})
+
     });
   }
 });

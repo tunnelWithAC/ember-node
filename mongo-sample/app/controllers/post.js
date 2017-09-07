@@ -6,6 +6,16 @@ export default Ember.Controller.extend({
   post: "testing image upload",
   actions: {
     addPost() {
+      /*
+        get index of each hashtag
+        check if each hashtag is followed by a letter/number
+        // https://stackoverflow.com/questions/18042133/check-if-input-is-number-or-letter-javascript
+        get each word that is hashtagged
+        surround each word with link
+      */
+
+
+
       /*var text = this.get('post');
       var length = 0;
       var pos = text.indexOf("#");
@@ -45,11 +55,10 @@ export default Ember.Controller.extend({
       }*/
 
       var file = document.getElementById('file-field').files[0];
-
       var post = this.store.createRecord('post', {
         content: this.get('post'),
-        image: file,
-        author: '2 Sept',
+        //image: file,
+        author: '4 Sept',
         votes: 0
       });
       post.save();

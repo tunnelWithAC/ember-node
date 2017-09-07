@@ -1,7 +1,8 @@
 var NoteModel = require('./models/note');
-var postModel = require('./models/post');
+var post = require('./models/post');
 var userModel = require('./models/user');
-var jwt = require('jwt-simple');
+var uservoteModel = require('./models/uservote');
+//var jwt = require('jwt-simple');
 
 module.exports = function (app) {
 
@@ -17,10 +18,12 @@ app.post('/token', function(req, res){
 			} else{
 
 				if(user === null){
-					res.status(400).send(' { "error" : "invalid_grant" }');
+					res.status(200).send(' { "error" : "invalid_grant", display_message : "Failed to log in" }');
 				}
 				else{
-					res.status(200).send({data : { access_token: 'secret_token' }}  );
+					res.status(200).send({data : { access_token: 'secret_token', user: {
+						id: user._id
+					} }}  );
 					/*var expires = new Date();
 					expires.setDate((new Date()).getDate() + 1);
 					var token = jwt.encode({
@@ -35,7 +38,7 @@ app.post('/token', function(req, res){
 	});
 
 }	else {
-	res.status(400).send(' { "error" : "unsupported_grant_type" }');
+	res.status(200).send(' { "error" : "unsupported_grant_type", display_message : "Failed to log in" }');
 }
 });
 
@@ -44,7 +47,7 @@ app.get('/api/',function(req,res) {
 });
 
 function getPosts(res) {
-	postModel.find(function (err, posts) {
+	post.find(function (err, posts) {
 		if (err) {
 			res.send(err);
 		}
@@ -57,7 +60,7 @@ app.get('/api/posts', function(req,res) {
 });
 
 app.post('/api/posts', function (req, res) {
-	console.log(req.body);
+	console.log("body" + req.body);
 	/*
 	String newFileName = "my-image";
 	File imageFile = new File("/users/victor/images/image.png");
@@ -66,7 +69,7 @@ app.post('/api/posts', function (req, res) {
 	gfsFile.setFilename(newFileName);
 	gfsFile.save();
 	*/
-	postModel.create({
+	post.create({
 		//title: req.body.post.title,
 		content: req.body.post.content,
 		author: req.body.post.author,
@@ -79,7 +82,7 @@ app.post('/api/posts', function (req, res) {
 	});
 });
 
-app.get('/api/users/:id', function(req, res){
+/*app.get('/api/users/:id', function(req, res){
 	console.log("PARAMS" + req.params.id);
 	userModel.findOne({_id : req.params.id}), function(err, user){
 		console.log(user);
@@ -89,7 +92,7 @@ app.get('/api/users/:id', function(req, res){
 			res.send(user);
 		}
 	}
-});
+});*/
 
 app.post('/api/users', function (req, res) {
 
@@ -131,6 +134,18 @@ app.post('/api/users', function (req, res) {
 
 });
 
+app.get('/api/uservotes', function(req,res) {
+	uservoteModel.find({},function(err,uservotes) {
+		if(err) {
+			res.send(err);
+		}
+		else {
+			res.send({data:uservotes});
+		}
+	});
+});
+
+
 app.get('/api/notes', function(req,res) {
 	NoteModel.find({},function(err,docs) {
 		if(err) {
@@ -141,4 +156,5 @@ app.get('/api/notes', function(req,res) {
 		}
 	});
 });
+
 };

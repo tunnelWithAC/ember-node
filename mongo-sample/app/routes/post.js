@@ -1,11 +1,20 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-	content: 'test',
 
-	model: function() {
-		return this.store.findAll('post');
-	},
+model() {
+	console.log(this.store.findAll('post'));
+    return Ember.RSVP.hash({
 
-	
+      posts: this.store.findAll('post'),
+      uservotes: this.store.findAll('uservote')
+    });
+  },
+
+  setupController(controller, model) {
+    this._super(...arguments);
+    Ember.set(controller, 'posts', model.posts);
+    Ember.set(controller, 'uservotes', model.uservotes);
+  }
+
 });
