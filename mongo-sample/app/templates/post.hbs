@@ -24,7 +24,7 @@
 			<hr>
 			<div class="col-sm-8"><small class="post">Posted by: {{item.author}}</small></div>
 			<div class="col-sm-2"> <button {{action 'upvote' item }}> + </button>
-				<button {{action 'downvote' item -1 }}> - </button> </div>
+				<button {{action 'vote' item -1 }}> - </button> </div>
 			<div class="col-sm-2">{{item.votes}}</div>
 			<img src="{{model.imageUrl}}" class="small-image" />
 		</div>

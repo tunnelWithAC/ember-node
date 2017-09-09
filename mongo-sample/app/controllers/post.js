@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
       }).then((resp) => {
         this.set('disableDown', resp.data.status);
         if(resp.data.status){
-          post.incrementProperty('votes');
+          post.decrementProperty('votes');
         }
       });
     },
