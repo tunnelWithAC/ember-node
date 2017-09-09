@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
       this.get('session').authenticate(
         this.get('email'),
         this.get('password')).then( (response)=> {
-          //this.transitionToRoute('post');
+          this.transitionToRoute('post');
         }, (err) => {
           this.set('errorMessage', err.responseText.display_message);
           //alert("Error: " + err.responseText);

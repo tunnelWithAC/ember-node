@@ -7,6 +7,7 @@ model() {
     return Ember.RSVP.hash({
 
       posts: this.store.findAll('post'),
+      //return uservotes for only currentUser
       uservotes: this.store.findAll('uservote')
     });
   },

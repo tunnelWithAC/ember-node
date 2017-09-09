@@ -8,9 +8,44 @@ export default Ember.Controller.extend({
   disableUp: false,
   disableDown: false,
 
+
+  postvotes: Ember.observer('uservotes', 'posts', function() {
+    console.log('update');
+    let uservotes  = this.get('uservotes') ;
+    let posts = this.get('posts');
+
+
+
+    if(uservotes){
+      Ember.Logger.log("No. uv: ", this.get('uservotes').length);
+      Ember.Logger.log("No. posts: ", posts.length);
+      //console.log("uv", uservotes.objectAt(0).data);
+      uservotes.forEach(function(uservote, index) {
+          console.log(index, uservote.data.post);
+          for(var i=0; i<posts.length; i++){
+            console.log(" v " + posts.objectAt(i).post);
+            if(uservote.data.post === posts.objectAt(i).post){
+              console.log("match found");
+              console.log(posts.objectAt(i).post);
+              //pushObject
+            }
+          }
+          /*
+          find the post associated with each vote
+            > > >push the value of the vote into the post
+          */
+          //mutableComments.pushObject(story);
+
+      });
+    }
+
+  }),
+
+
+
+
   actions: {
     upvote(post, vote){
-      console.log(vote);
       return $.ajax({
         //host: 'http://localhost:8081',
         method: 'POST',
@@ -29,9 +64,7 @@ export default Ember.Controller.extend({
     },
 
     vote(post, vote){
-      console.log(vote);
-
-      return $.ajax({
+     $.ajax({
         //host: 'http://localhost:8081',
         method: 'POST',
         url: 'http://localhost:8081/api/vote',

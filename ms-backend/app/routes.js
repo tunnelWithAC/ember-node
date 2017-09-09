@@ -42,10 +42,6 @@ module.exports = function (app) {
 	}
 });
 
-app.get('/api/',function(req,res) {
-	res.send('Working');
-});
-
 function getPosts(res) {
 	postModel.find(function (err, posts) {
 		if (err) {
@@ -134,16 +130,14 @@ app.post('/api/users', function (req, res) {
 
 });
 
-app.get('/api/uservotes/', function(req,res) {
+app.get('/api/uservotes', function(req,res) {
 
-	uservoteModel.find({},function(err,uservotes) {
+	uservoteModel.find(function(err,uservotes) {
 		if(err) {
 			res.send(err);
 		}
-		else {
-			res.send({data:uservotes}); // return all workouts in JSON format
-			//res.status(200).send(' { "response" : "ok" }');
-		}
+		res.send({data:uservotes}); // return all workouts in JSON format
+		//res.status(200).send(' { "response" : "ok" }');
 	});
 });
 
@@ -159,49 +153,49 @@ app.post('/api/upvote/', function(req,res) {
 			res.send(err);
 		}
 
-			console.log("uservote search result"  + uservote);
-			if(uservote !== null){
-				if(uservote.value !== 1){
-					upvoted = true;
-				}
-				uservote.value = 1;
-				uservote.save(function(err) {
-					if (err)
-					console.log('error')
-				});
+		console.log("uservote search result"  + uservote);
+		if(uservote !== null){
+			if(uservote.value !== 1){
+				upvoted = true;
 			}
-			else {
-				// create uservote
-				uservoteModel.create({
-					value: 1,
-					user: u,
-					post: p
-				}, function (err) {
-					if (err)
+			uservote.value = 1;
+			uservote.save(function(err) {
+				if (err)
+				console.log('error')
+			});
+		}
+		else {
+			// create uservote
+			uservoteModel.create({
+				value: 1,
+				user: u,
+				post: p
+			}, function (err) {
+				if (err)
+				res.send(err);
+
+			});
+			upvoted = true;
+		}
+
+		console.log("upvoted: " + upvoted);
+		if(upvoted){
+			console.log("Updating post value");
+			// update the value of the post votes
+			postModel.findOne({ _id: p}, function(err, post) {
+				if(err) {
 					res.send(err);
+				}
+				else{
+					console.log("Post" + post);
+					updated = 1;
+					post.votes++;
+					post.save();
 
-				});
-					upvoted = true;
-			}
-
-			console.log("upvoted: " + upvoted);
-			if(upvoted){
-				console.log("Updating post value");
-				// update the value of the post votes
-				postModel.findOne({ _id: p}, function(err, post) {
-					if(err) {
-						res.send(err);
-					}
-					else{
-						console.log("Post" + post);
-						updated = 1;
-						post.votes++;
-						post.save();
-
-					}
-				});
-			}
-			res.status(200).send({data : { status: upvoted }}  );
+				}
+			});
+		}
+		res.status(200).send({data : { status: upvoted }}  );
 	});
 
 });
@@ -219,49 +213,49 @@ app.post('/api/vote/', function(req,res) {
 			res.send(err);
 		}
 
-			console.log("uservote search result"  + uservote);
-			if(uservote !== null){
-				if(uservote.value !== -1){
-					downvoted = true;
-				}
-				uservote.value = -1;
-				uservote.save(function(err) {
-					if (err)
-					console.log('error')
-				});
+		console.log("uservote search result"  + uservote);
+		if(uservote !== null){
+			if(uservote.value !== -1){
+				downvoted = true;
 			}
-			else {
-				// create uservote
-				uservoteModel.create({
-					value: -1,
-					user: user,
-					post: post
-				}, function (err) {
-					if (err)
+			uservote.value = -1;
+			uservote.save(function(err) {
+				if (err)
+				console.log('error')
+			});
+		}
+		else {
+			// create uservote
+			uservoteModel.create({
+				value: -1,
+				user: user,
+				post: post
+			}, function (err) {
+				if (err)
+				res.send(err);
+
+			});
+			downvoted = true;
+		}
+
+		console.log("downvoted: " + downvoted);
+		if(downvoted){
+			console.log("downvoted post value");
+			// update the value of the post votesdownvoted
+			postModel.findOne({ _id: post}, function(err, post) {
+				if(err) {
 					res.send(err);
+				}
+				else{
+					console.log("Post" + post);
 
-				});
-					downvoted = true;
-			}
+					post.votes--;
+					post.save();
 
-			console.log("downvoted: " + downvoted);
-			if(downvoted){
-				console.log("downvoted post value");
-				// update the value of the post votesdownvoted
-				postModel.findOne({ _id: post}, function(err, post) {
-					if(err) {
-						res.send(err);
-					}
-					else{
-						console.log("Post" + post);
-
-						post.votes--;
-						post.save();
-
-					}
-				});
-			}
-			res.status(200).send({data : { status: downvoted }}  );
+				}
+			});
+		}
+		res.status(200).send({data : { status: downvoted }}  );
 	});
 
 });
