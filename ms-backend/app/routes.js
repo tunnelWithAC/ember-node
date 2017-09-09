@@ -1,45 +1,45 @@
 var NoteModel = require('./models/note');
-var post = require('./models/post');
+var postModel = require('./models/post');
 var userModel = require('./models/user');
 var uservoteModel = require('./models/uservote');
 //var jwt = require('jwt-simple');
 
 module.exports = function (app) {
 
-app.post('/token', function(req, res){
+	app.post('/token', function(req, res){
 
-	if(req.body.grant_type === 'password'){
+		if(req.body.grant_type === 'password'){
 
-		var email = req.body.email;
-		var password = req.body.password;
-		userModel.findOne({ email: email, password: password }, 'username password', function(err, user){
-			if(err){
-				console.error(err);
-			} else{
+			var email = req.body.email;
+			var password = req.body.password;
+			userModel.findOne({ email: email, password: password }, 'username password', function(err, user){
+				if(err){
+					console.error(err);
+				} else{
 
-				if(user === null){
-					res.status(200).send(' { "error" : "invalid_grant", display_message : "Failed to log in" }');
+					if(user === null){
+						res.status(200).send(' { "error" : "invalid_grant", display_message : "Failed to log in" }');
+					}
+					else{
+						res.status(200).send({data : { access_token: 'secret_token', user: {
+							id: user._id
+						} }}  );
+						/*var expires = new Date();
+						expires.setDate((new Date()).getDate() + 1);
+						var token = jwt.encode({
+						username: username,
+						expires: expires
+					}, app.get('jwtTokenSecret'));
+
+					tokensArray.push(token);
+					res.json({ access_token: token, username: username, success: true});*/
 				}
-				else{
-					res.status(200).send({data : { access_token: 'secret_token', user: {
-						id: user._id
-					} }}  );
-					/*var expires = new Date();
-					expires.setDate((new Date()).getDate() + 1);
-					var token = jwt.encode({
-					username: username,
-					expires: expires
-				}, app.get('jwtTokenSecret'));
-
-				tokensArray.push(token);
-				res.json({ access_token: token, username: username, success: true});*/
 			}
-		}
-	});
+		});
 
-}	else {
-	res.status(200).send(' { "error" : "unsupported_grant_type", display_message : "Failed to log in" }');
-}
+	}	else {
+		res.status(200).send(' { "error" : "unsupported_grant_type", display_message : "Failed to log in" }');
+	}
 });
 
 app.get('/api/',function(req,res) {
@@ -47,7 +47,7 @@ app.get('/api/',function(req,res) {
 });
 
 function getPosts(res) {
-	post.find(function (err, posts) {
+	postModel.find(function (err, posts) {
 		if (err) {
 			res.send(err);
 		}
@@ -69,7 +69,7 @@ app.post('/api/posts', function (req, res) {
 	gfsFile.setFilename(newFileName);
 	gfsFile.save();
 	*/
-	post.create({
+	postModel.create({
 		//title: req.body.post.title,
 		content: req.body.post.content,
 		author: req.body.post.author,
@@ -83,15 +83,15 @@ app.post('/api/posts', function (req, res) {
 });
 
 /*app.get('/api/users/:id', function(req, res){
-	console.log("PARAMS" + req.params.id);
-	userModel.findOne({_id : req.params.id}), function(err, user){
-		console.log(user);
-		if(err){
-			console.error(err);
-		} else{
-			res.send(user);
-		}
-	}
+console.log("PARAMS" + req.params.id);
+userModel.findOne({_id : req.params.id}), function(err, user){
+console.log(user);
+if(err){
+console.error(err);
+} else{
+res.send(user);
+}
+}
 });*/
 
 app.post('/api/users', function (req, res) {
@@ -104,7 +104,7 @@ app.post('/api/users', function (req, res) {
 		} else{
 			console.info('User: ' + user);
 			if(user === null){
-				user.create({
+				userModel.create({
 					//title: req.body.post.title,
 					name: req.body.name,
 					email: req.body.email,
@@ -134,17 +134,138 @@ app.post('/api/users', function (req, res) {
 
 });
 
-app.get('/api/uservotes', function(req,res) {
+app.get('/api/uservotes/', function(req,res) {
+
 	uservoteModel.find({},function(err,uservotes) {
 		if(err) {
 			res.send(err);
 		}
 		else {
-			res.send({data:uservotes});
+			res.send({data:uservotes}); // return all workouts in JSON format
+			//res.status(200).send(' { "response" : "ok" }');
 		}
 	});
 });
 
+app.post('/api/upvote/', function(req,res) {
+	var u = req.body.user;
+	var p = req.body.post;
+	var updated = 0;
+	var upvoted = false;
+
+	// set the value of the uservote to 1, 0 , or -1
+	uservoteModel.findOne({ user: u, post: p},function(err,uservote) {
+		if(err) {
+			res.send(err);
+		}
+
+			console.log("uservote search result"  + uservote);
+			if(uservote !== null){
+				if(uservote.value !== 1){
+					upvoted = true;
+				}
+				uservote.value = 1;
+				uservote.save(function(err) {
+					if (err)
+					console.log('error')
+				});
+			}
+			else {
+				// create uservote
+				uservoteModel.create({
+					value: 1,
+					user: u,
+					post: p
+				}, function (err) {
+					if (err)
+					res.send(err);
+
+				});
+					upvoted = true;
+			}
+
+			console.log("upvoted: " + upvoted);
+			if(upvoted){
+				console.log("Updating post value");
+				// update the value of the post votes
+				postModel.findOne({ _id: p}, function(err, post) {
+					if(err) {
+						res.send(err);
+					}
+					else{
+						console.log("Post" + post);
+						updated = 1;
+						post.votes++;
+						post.save();
+
+					}
+				});
+			}
+			res.status(200).send({data : { status: upvoted }}  );
+	});
+
+});
+
+
+app.post('/api/vote/', function(req,res) {
+	var user = req.body.user;
+	var post = req.body.post;
+	var value = req.body.vote;
+	var updated = 0;
+	var upvoted = false;
+
+	// set the value of the uservote to 1, 0 , or -1
+	uservoteModel.findOne({ user: user, post: post},function(err,uservote) {
+		if(err) {
+			res.send(err);
+		}
+
+			console.log("uservote search result"  + uservote);
+			if(uservote !== null){
+				if(uservote.value !== 1){
+					upvoted = true;
+				}
+				uservote.value = 1;
+				uservote.save(function(err) {
+					if (err)
+					console.log('error')
+				});
+			}
+			else {
+				// create uservote
+				uservoteModel.create({
+					value: 1,
+					user: u,
+					post: p
+				}, function (err) {
+					if (err)
+					res.send(err);
+
+				});
+					upvoted = true;
+			}
+
+			console.log("upvoted: " + upvoted);
+			if(upvoted){
+				console.log("Updating post value");
+				// update the value of the post votes
+				postModel.findOne({ _id: p}, function(err, post) {
+					if(err) {
+						res.send(err);
+					}
+					else{
+						console.log("Post" + post);
+						updated = 1;
+						post.votes++;
+						post.save();
+
+					}
+				});
+			}
+			res.status(200).send({data : { status: upvoted }}  );
+	});
+
+});
 
 app.get('/api/notes', function(req,res) {
 	NoteModel.find({},function(err,docs) {

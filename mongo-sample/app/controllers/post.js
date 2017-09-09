@@ -2,57 +2,59 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  session: Ember.inject.service('session'),
   //ajax: Ember.inject.service(),
-  post: "testing image upload",
+  //post: "testung user vote",
+  disableUp: false,
+  disableDown: false,
+
   actions: {
+    upvote(post, vote){
+      console.log(vote);
+      return $.ajax({
+        //host: 'http://localhost:8081',
+        method: 'POST',
+        url: 'http://localhost:8081/api/upvote',
+        data: {
+          vote: vote,
+          user: this.get('session').userID,
+          post: post.id
+        }
+      }).then((resp) => {
+        this.set('disableUp', resp.data.status);
+        if(resp.data.status){
+          post.incrementProperty('votes');
+        }
+      });
+    },
+
+    vote(post, vote){
+      console.log(vote);
+
+      return $.ajax({
+        //host: 'http://localhost:8081',
+        method: 'POST',
+        url: 'http://localhost:8081/api/vote',
+        data: {
+          user: this.get('session').userID,
+          post: post.id
+        }
+      }).then((resp) => {
+        this.set('disableDown', resp.data.status);
+        if(resp.data.status){
+          post.incrementProperty('votes');
+        }
+      });
+    },
+
     addPost() {
       /*
-        get index of each hashtag
-        check if each hashtag is followed by a letter/number
-        // https://stackoverflow.com/questions/18042133/check-if-input-is-number-or-letter-javascript
-        get each word that is hashtagged
-        surround each word with link
+      get index of each hashtag
+      check if each hashtag is followed by a letter/number
+      // https://stackoverflow.com/questions/18042133/check-if-input-is-number-or-letter-javascript
+      get each word that is hashtagged
+      surround each word with link
       */
-
-
-
-      /*var text = this.get('post');
-      var length = 0;
-      var pos = text.indexOf("#");
-      var hashtag ="";
-      var hashFound = false;
-      console.log("Lenght", this.get('post').length);
-      while(pos < this.get('post').length){
-
-        while(text.charAt(pos) !== " " ){
-          hashtag += text.charAt(pos);
-          console.log(text.charAt(pos));
-          console.log(pos);
-          pos++;
-        }
-        //text = text.replace(hashtag, "<a href=''>" + hashtag + "</a>");
-        //console.log(text.substr(pos,).indexOf("#") );
-        console.log(text);
-        console.log(text.substr(pos,));
-        if(text.substr(pos,).indexOf("#") !== -1){
-          //pos = text.substr(pos+1,).indexOf("#");
-        }
-        else {
-          break;
-        }
-
-        console.log(pos);
-
-        break;
-      }
-      if(text.indexOf("#") !== -1){
-        var index = text.indexOf("#");
-        while(text.charAt(index) !== " "){
-          length++;
-          index++;
-        }
-        text = text.replace(text.substr(11, length), "<a href=''>" + text.substr(11, length) + "</a>");
-      }*/
 
       var file = document.getElementById('file-field').files[0];
       var post = this.store.createRecord('post', {
