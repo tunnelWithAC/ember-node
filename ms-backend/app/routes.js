@@ -6,11 +6,12 @@ var uservoteModel = require('./models/uservote');
 
 module.exports = function (app) {
 
-	app.post('/token', function(req, res){
+	app.post('/api/token', function(req, res){
 
+		console.log(req.body);
 		if(req.body.grant_type === 'password'){
 
-			var email = req.body.email;
+			var email = req.body.username;
 			var password = req.body.password;
 			userModel.findOne({ email: email, password: password }, 'username password', function(err, user){
 				if(err){
@@ -18,12 +19,16 @@ module.exports = function (app) {
 				} else{
 
 					if(user === null){
-						res.status(200).send(' { "error" : "invalid_grant", display_message : "Failed to log in" }');
+						console.log("user null");
+						res.status(200);
+						res.json({error: "invalid_grant", display_message : "Failed to log in" });
+						//res.status(200).send(' { "error" : "invalid_grant", display_message : "Failed to log in" }');
 					}
 					else{
-						res.status(200).send({data : { access_token: 'secret_token', user: {
+						console.log("user null");
+						res.status(200).send( { access_token: 'secret_token', user: {
 							id: user._id
-						} }}  );
+						} }  );
 						/*var expires = new Date();
 						expires.setDate((new Date()).getDate() + 1);
 						var token = jwt.encode({

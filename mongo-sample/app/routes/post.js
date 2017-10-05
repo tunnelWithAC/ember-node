@@ -1,6 +1,17 @@
 import Ember from 'ember';
+//import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixin';
+//import Cookies from 'js-cookie'
+export default Ember.Route.extend(/*AuthenticatedRouteMixin,*/ {
 
-export default Ember.Route.extend({
+
+/*
+Snippets:
+
+includes(){
+  return array.mapBy('content').includes(param)
+}
+
+*/
 
 model() {
 	//console.log(this.store.findAll('post'));

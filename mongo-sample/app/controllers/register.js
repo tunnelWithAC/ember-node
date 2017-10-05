@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+const { Logger } = Ember;
 export default Ember.Controller.extend({
   name: 'conall',
   email:'sample@email.com',
@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
       this.get('session').authenticate(
         this.get('name'),
         this.get('password')).then( ()=> {
-          console.log(this.get('session').get('token'));
+          Logger.log(this.get('session').get('token'));
           this.transitionToRoute('post');
         }, (err) => {
           alert("Error: " + err.responseText);

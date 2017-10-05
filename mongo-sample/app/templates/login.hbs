@@ -3,6 +3,6 @@
   <h3>Login Form</h3><br>
   {{paper-input class="flex-80" label="E-mail" type="email" value=email onChange=(action (mut email))}}<br>
   {{paper-input class="flex-80" label="Password" type="password" value=password onChange=(action (mut password))}}<br>
-  {{#paper-button raised=true onClick=(action "authenticate")}}Login{{/paper-button}}
+  {{#paper-button raised=true onClick=(action "login")}}Login{{/paper-button}}
   {{errorMessage}}
 </div>

@@ -1,0 +1,13 @@
+bower_components/
+dist/
+node_modules/
+scripts/
+tests/unit/adapters/post-test.js
+tests/unit/controllers/application-test.js
+tests/unit/controllers/register-test.js
+tests/unit/serializers/user-test.js
+tests/unit/serializers/uservote-test.js
+tmp/
+../ms-backend/node_modules/
+../ms-backend/tests/
+
