@@ -1,0 +1,16 @@
+total vote counts
+modal component
+hide -5 posts
+filters for posts (e.g. most comments/ lowest votes, most recent)
+comment previews
+report posts
+track location -> https://github.com/igorpreston/ember-cli-geo
+profile page
+branches
+-hashtag
+-clean code aka master
+-image upload
+-probably mobile
+mobile
+- pwa
+- ionic

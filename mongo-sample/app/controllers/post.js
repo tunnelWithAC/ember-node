@@ -61,7 +61,7 @@ export default Ember.Controller.extend({
       surround each word with link
       */
 
-      var file = document.getElementById('file-field').files[0];
+      //var file = document.getElementById('file-field').files[0];
       var post = this.store.createRecord('post', {
         content: this.get('post'),
         //image: file,

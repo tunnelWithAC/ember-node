@@ -7,9 +7,12 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('post');
+  this.route('post', function() {
+    this.route('comments');
+  });
   this.route('login');
   this.route('register');
+  this.route('profile');
 });
 
 export default Router;

@@ -6,10 +6,9 @@ export default Ember.Controller.extend({
 
   actions: {
     logout(){
-        Ember.Logger.log("Logout called");
+        this.transitionToRoute('login');
         this.get('session').invalidate();
     }
-
   }
 
 });

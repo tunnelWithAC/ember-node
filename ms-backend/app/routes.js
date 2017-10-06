@@ -255,6 +255,9 @@ app.post('/api/vote/', function(req,res) {
 					console.log("Post" + post);
 
 					post.votes--;
+					if(post.votes <= -5){
+						post.visible = false;
+					}
 					post.save();
 
 				}

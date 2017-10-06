@@ -4,7 +4,8 @@ export default DS.Model.extend({
 	title: DS.attr('string'),
 	content: DS.attr('string'),
 	author: DS.attr('string'),
-	//date: DS.attr('date'),
+	date: DS.attr('date'),
+	visible: DS.attr('boolean'),
 	votes: DS.attr('number'),
 	user: DS.belongsTo('user')
 	//image: DS.attr('file'),
