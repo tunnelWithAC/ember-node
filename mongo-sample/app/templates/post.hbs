@@ -1,50 +1,49 @@
-<div class="container">
-	<br>
-	<div class="main-content">
-		<div class="row">
+<div class="container post-page" style="">
 
-			<div class="col-sm-12" style="margin:10px;">
-				<br>
+<div style="background-color:white;" class="flex-100">
+	<div class="flex-100 grey input-box" style="background-color:white;">
+		{{paper-input class="" maxlength=256 label="Name" value=post onChange=(action (mut post))}}
+		<button {{action "addPost"}}>Add post</button>
+	</div>
 
-				{{paper-input class="" maxlength=256 label="Name" value=post onChange=(action (mut post)) style="width:100%"}}
-				<br>
-				<p>{{!input valueBinding='file' type='file' id='file-field'}} <img src="{{model.imageUrl}}" id="preview-image" class="small-image" /></p>
 
-				<button {{action "addPost"}}>Add post</button>
-			</div>
-		</div>
+
+	{{#each posts as |post|}}
+	<!-- <div class="container">
+		<div class="box dark_blue">1</div>
+		<div class="box light_blue">2</div>
+		<div class="box green">3</div>
+		<div class="box orange">4</div>
+		<div class="box red">5</div>
+
+	</div>
+	-->
+	<div class="container">
+	<div class="flex-60 content" style="">
+		{{post.content}}
+	</div>
+	<div class="flex-20 votes">
+		votes
+	</div>
+	<div class="flex-20 buttons">
+			buttons
+	</div>
+	<div class="flex-20 comments">
+			comments
+	</div>
 	</div>
 	<br>
+
+	{{/each}}
+
+
+
+</div>
+
 
 	 {{#if session.isAuthenticated}}
 
-	{{#each posts as |item|}}
-	{{#if item.visible}}
-	<div class="main-content">
-		<div class="row">
-			<div class="col-sm-8"><span class="post">{{{item.content}}}</span></div>
-			<div class="col-sm-2">#votes </div>
-			<div class="col-sm-2"></div>
 
-			<div class="col-sm-8"><small class="post">Posted by: {{item.author}}</small></div>
-			<div class="col-sm-2">{{item.votes}}</div> {{!TODO Increase height}}
-			<div class="col-sm-2">
-				{{! make buttons take up fill row height -- copy imgur}}
-				<button {{action 'upvote' item }}> + </button>
-				<button {{action 'vote' item -1 }}> - </button>
-			</div>
-
-
-				<div class="col-sm-2"><small class="post">0 comments</small></div>
-				<div class="col-sm-2"><a><small class="post">Comment</small></a></div>
-				<div class="col-sm-6"></div>
-				<div class="col-sm-2"><small><a>Report</a></small></div>
-
-		</div>
-	</div>
-	<br>
-	{{/if}}
-	{{/each}}
 	{{yield}}
 
 	{{/ if}}

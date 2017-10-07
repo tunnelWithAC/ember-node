@@ -1,31 +1,13 @@
 {{#paper-toolbar}}
   <div class="md-toolbar-tools">
     {{#if session.isAuthenticated}}
-      {{#paper-button action=(transition-to 'home')}}{{paper-icon 'home'}}Home{{/paper-button}}
       {{#link-to "post" }}{{#paper-button}}Posts{{/paper-button}}{{/link-to}}
-      {{#paper-button action=(transition-to 'dashboard')}}My Courses{{/paper-button}}
+
     {{/if}}
     <div class="paper-right">
 
       {{#if session.isAuthenticated}}
         {{#link-to "profile" }}{{paper-icon 'person'}}{{/link-to}}
-
-        {{#paper-menu as |menu|}}
-  {{#menu.trigger}}
-    {{#paper-button onClick=null iconButton=true}}
-      {{paper-icon "local_phone" class="md-menu-origin"}}
-    {{/paper-button}}
-  {{/menu.trigger}}
-
-  {{#menu.content width=6 as |content|}}
-    
-      {{#content.menu-item onClick=(action "openSomething")}}
-        <span class="md-menu-align-target">Option</span> {{item}}
-      {{/content.menu-item}}
-
-  {{/menu.content}}
-{{/paper-menu}}
-
         {{#paper-button onClick=(action "logout")}}Logout{{/paper-button}}
       {{else}}
         {{#link-to "register" }}{{#paper-button}}Register{{/paper-button}}{{/link-to}}

@@ -1,4 +1,13 @@
 @import 'ember-paper';
+@import 'over500';
+@import 'over700';
+
+.container {
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+}
+
 
 .paper-right {
   margin-left: auto;
@@ -11,10 +20,6 @@ body {
 .message-bar {
   height: 70px;
   padding-top: 13px;
-}
-
-.alert-chat {
-  padding: 5px;
 }
 
 .label-user {
@@ -37,15 +42,84 @@ body {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.wrapper {
-    margin-top: 80px;
-    margin-bottom: 80px;
-}
+
 .post {
-  margin-top: 15px;
-  margin-left: 10px;
+  margin-left: 5%;
 }
 .main-content {
   background-color: white;
   height: 100%;
+
+}
+
+
+
+@media screen and (min-width: 600px) {
+	/*body { background-color: blue; }*/
+}
+
+
+/*
+xss 5
+xs 10
+s 20
+sm 30
+m 40
+ml 50
+l 60
+xl 75
+xxl 85
+full 100
+
+*/
+.box { width: 20%; }
+.flex-75 { width: 75%; }
+.flex-25 { width: 25%; }
+.flex-50 { width: 50%; }
+.flex-60 { width: 60%; }
+.flex-20 { width: 20%; }
+.flex-100 { width: 100%; }
+
+
+/*
+classes:
+  post 1 /1
+  votes 2 /2
+  buttons 3/ 4
+  comment 4 / 3
+  report 5
+*/
+@media screen and (max-width: 400px) {
+  .post { order: 1; }
+  .votes { order: 2; }
+  .buttons { order: 4; }
+  .comments { order: 3; }
+  .report { order: 5; }
+  .container {
+    padding: 0px;
+    margin: 0px;
+  }
+  .post-page {
+    padding-top: 2.5%;
+  }
+}
+
+@media screen and (min-width: 700px){
+  .post-page {
+    margin-top: 2.5%;
+  }
+  .wrapper {
+      margin-top: 12%;
+      margin-bottom: 12%;
+  }
+  .post {
+    margin-top: 15%;
+    margin-left: 5%;
+  }
+
+.post { order: 1; }
+.votes { order: 2; }
+.buttons { order: 3; }
+.comments { order: 4; }
+.report { order: 5; }
 }

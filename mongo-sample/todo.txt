@@ -1,6 +1,6 @@
 total vote counts
 modal component
-hide -5 posts
+hide -5 posts [done-ish]
 filters for posts (e.g. most comments/ lowest votes, most recent)
 comment previews
 report posts
