@@ -1,50 +1,7 @@
 <div class="container post-page" style="">
 
-<div style="background-color:white;" class="flex-100">
-	<div class="flex-100 grey input-box" style="background-color:white;">
-		{{paper-input class="" maxlength=256 label="Name" value=post onChange=(action (mut post))}}
-		<button {{action "addPost"}}>Add post</button>
-	</div>
+{{content.content}}
+{{content.author}}
+{{content.date}}
 
-
-
-	{{#each posts as |post|}}
-	<!-- <div class="container">
-		<div class="box dark_blue">1</div>
-		<div class="box light_blue">2</div>
-		<div class="box green">3</div>
-		<div class="box orange">4</div>
-		<div class="box red">5</div>
-
-	</div>
-	-->
-	<div class="container">
-	<div class="flex-60 content" style="">
-		{{post.content}}
-	</div>
-	<div class="flex-20 votes">
-		votes
-	</div>
-	<div class="flex-20 buttons">
-			buttons
-	</div>
-	<div class="flex-20 comments">
-			comments
-	</div>
-	</div>
-	<br>
-
-	{{/each}}
-
-
-
-</div>
-
-
-	 {{#if session.isAuthenticated}}
-
-
-	{{yield}}
-
-	{{/ if}}
 </div>

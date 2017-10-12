@@ -8,7 +8,7 @@ export default ApplicationSerializer.extend({
     //payload.data.attributes.currency = payload.data.attributes.cost.currency;
     //delete payload.data.attributes.cost;
     //payload = { posts: payload.data };
-    console.log("resp");
+    //console.log("resp");
     return this._super(store, primaryModelClass, payload, id, requestType);
   },
   normalizeSingleResponse(store, primaryModelClass, payload, id) {
@@ -17,7 +17,7 @@ export default ApplicationSerializer.extend({
     //payload.data.attributes.currency = payload.data.attributes.cost.currency;
 
     //delete payload.data.attributes.cost;
-    console.log("resp");
+    //console.log("resp");
     return this._super(store, primaryModelClass, payload, id);
   },
 

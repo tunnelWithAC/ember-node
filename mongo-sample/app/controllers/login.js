@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
       let { email, password } = this.getProperties('email', 'password');
       this.get('session').authenticate('authenticator:oauth2', email, password).then( (response)=> {
         Ember.Logger.log(response);
-        this.transitionToRoute('post');
+        this.transitionToRoute('posts');
       }, (err) => {
         this.set('errorMessage', err.responseText.display_message);
       });

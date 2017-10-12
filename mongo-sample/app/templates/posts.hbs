@@ -1,0 +1,53 @@
+<div class="container" style="width:750px;">
+
+<div style="" class="">
+	<div class="input-box" style="">
+		{{paper-input class="" maxlength=256 label="Name" value=post onChange=(action (mut post))}}
+		<button {{action "addPost"}}>Add post</button>
+	</div>
+
+	{{#each posts as |post index|}}
+
+
+	<!-- green == content, yellow = votes -->
+
+
+	<div  style="margin-left:auto; margin-right:auto;" class="container">
+
+		<div class="content" style="">
+			{{#link-to "post" post.id }}
+			{{post.content}}
+				{{/link-to}}
+		</div>
+
+		<div class="up-button">
+			<button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=22}}</button>
+		</div>
+
+		<div class="votes"style="">
+			{{post.votes}}
+		</div>
+		<div class="down-button">
+			<button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=22}}</button>
+
+		</div>
+		<span class=" comments">
+			<a href="" >
+				<span class="comment-text">{{post.comments.length}}0 Comments</span>
+				<span class="comment-icon">{{paper-icon "chat-bubble-outline" size=22}}</span>
+			</a>
+		</span>
+	</div>
+	<div style="">
+		<form {{action 'saveComment' post.comment post.id index on='submit'}} class="form-inline">
+			<div class="full-width comment-input">
+				{{input value=(mut post.comment)  class="full-width comment-input" placeholder="Post comment"}}
+			</div>
+		</form>
+
+	</div>
+	<hr style="padding-top:0px;">
+
+	{{/each}}
+</div>
+</div>

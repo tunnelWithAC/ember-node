@@ -1,5 +1,6 @@
 var NoteModel = require('./models/note');
 var postModel = require('./models/post');
+var commentModel = require('./models/post');
 var userModel = require('./models/user');
 var uservoteModel = require('./models/uservote');
 //var jwt = require('jwt-simple');
@@ -60,6 +61,21 @@ app.get('/api/posts', function(req,res) {
 	getPosts(res);
 });
 
+app.get('/api/posts/:post_id', function(req,res) {
+
+	var post_id = req.params.post_id;
+
+	postModel.findOne({ _id: post_id }, function(err, post){
+		if(err){
+			console.error(err);
+			res.send(err);
+		} else{
+			console.log({data:post});
+			res.send({data:post});
+		}
+	});
+});
+
 app.post('/api/posts', function (req, res) {
 	console.log("body" + req.body);
 	/*
@@ -80,6 +96,19 @@ app.post('/api/posts', function (req, res) {
 		res.send(err);
 		// get and return all the todos after you create another
 		console.log("Post Created:" + req.body.post.content);
+	});
+});
+
+app.post('/api/comments', function (req, res) {
+	console.log("body" + req.body);
+	postModel.create({
+		content: req.body.post.content,
+		author: req.body.post.author,
+		votes: 0
+	}, function (err) {
+		if (err)
+		res.send(err);
+		console.log("Comment created:" + req.body.post.content);
 	});
 });
 
@@ -195,6 +224,7 @@ app.post('/api/upvote/', function(req,res) {
 					console.log("Post" + post);
 					updated = 1;
 					post.votes++;
+					post.totalVotes++;
 					post.save();
 
 				}
@@ -253,7 +283,7 @@ app.post('/api/vote/', function(req,res) {
 				}
 				else{
 					console.log("Post" + post);
-
+					post.totalVotes++;
 					post.votes--;
 					if(post.votes <= -5){
 						post.visible = false;
