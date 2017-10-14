@@ -23,7 +23,7 @@ model() {
 
 setupController(controller, model) {
   this._super(...arguments);
-  Ember.set(controller, 'posts', model.posts);
+  Ember.set(controller, 'posts', model.posts.sortBy('date'));
   Ember.set(controller, 'uservotes', model.uservotes);
 
   let uservotes  = controller.get('uservotes').content ;

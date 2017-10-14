@@ -100,6 +100,8 @@ app.post('/api/posts', function (req, res) {
 
 app.post('/api/comments', function (req, res) {
 	var content = req.body.comment.content;
+	var post = req.body.comment.post;
+	console.log("Post for comment >>>", post);
 	commentModel.create({
 		post: req.body.comment.post,
 		content: content,

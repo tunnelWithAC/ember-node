@@ -3,6 +3,11 @@
 import Ember from 'ember';
 const { Logger } = Ember;
 export default Ember.Controller.extend({
+
+  init: function() {
+    Ember.Logger.log("Model", this.get('posts'));
+  //this.get('posts').sortBy('date'); //Requires the model to be of Ember.Array Type
+  },
   session: Ember.inject.service('session'),
   //ajax: Ember.inject.service(),
   //post: "testung user vote",
@@ -20,13 +25,15 @@ export default Ember.Controller.extend({
 
   actions: {
     saveComment(text, postID){
-      Logger.log("SENDcomment", text, postID);
+      var post_id = this.get('model').id;
       var comment = this.store.createRecord('comment', {
         content: text,
-        post: postID,
         user: 'gobshite'
       });
-      comment.save();
+      var post = this.store.find('post', post_id).then(function(post){
+        comment.set('post', post);
+        comment.save();
+      })
     },
     upvote(post, vote){
       return $.ajax({

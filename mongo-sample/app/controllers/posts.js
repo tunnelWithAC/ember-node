@@ -11,7 +11,16 @@ export default Ember.Controller.extend({
 
   todos: null,
 
+  sortedPosts: Ember.computed.sort('posts', 'sortDefinition'),
+  sortBy: 'date:desc', // default sort by date
+  dateSort: 'date:desc',
+  voteSort: 'votes:desc',
+  sortDefinition: Ember.computed('sortBy', function() {
+    return [ this.get('sortBy') ];
+  }),
+
   init() {
+
     this.set('todos', [
       EmberObject.create({ isDone: true }),
       EmberObject.create({ isDone: false }),
@@ -47,6 +56,12 @@ export default Ember.Controller.extend({
   }.property('uservotes'),
 
   actions: {
+    sortDate(){
+      this.set('sortBy', 'date:desc');
+    },
+    sortVotes(){
+      this.set('sortBy', 'votes:desc');
+    },
     saveComment(post, comment, index){
       Ember.Logger.log("Action called", post, comment, index);
       let posts  = this.get('posts');

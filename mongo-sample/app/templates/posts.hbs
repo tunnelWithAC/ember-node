@@ -7,8 +7,11 @@
 		<button {{action "addPost"}}>Add post<span class="glyphicon glyphicon-arrow-up"></span></button>
 	</div>
 
-
-	{{#each posts as |post index|}}
+	<div class="sort">
+		{{#paper-button onClick=(action "sortVotes")}}Most Popular{{/paper-button}}
+  	{{#paper-button noink=true onClick=(action "sortDate") primary=true}}Most Recent{{/paper-button}}
+</div>
+	{{#each sortedPosts as |post index|}}
 
 	{{post-block post=post}}
 	{{#if isTrue "tst"}}
@@ -17,7 +20,7 @@
 	<!-- green == content, yellow = votes -->
 
 
-	
+
 	{{/each}}
 </div>
 </div>

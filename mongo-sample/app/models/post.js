@@ -7,6 +7,8 @@ export default DS.Model.extend({
 	date: DS.attr('date'),
 	visible: DS.attr('boolean'),
 	votes: DS.attr('number'),
+
+	comments: DS.hasMany('comment'),
 	user: DS.belongsTo('user')
 	//image: DS.attr('file'),
 	//imageUrl: Ember.computed.alias('thumbnailImage.thumbnail_image.url')

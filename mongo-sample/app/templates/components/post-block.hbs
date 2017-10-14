@@ -2,7 +2,7 @@
 
   <div class="content" style="">
     {{#link-to "post" post.id }}
-      <span style="color:grey;" class="post-date">{{post.date}}</span><br>
+      <span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span><br>
       {{post.content}}
     {{/link-to}}
   </div>
@@ -20,7 +20,7 @@
   </div>
   <span class=" comments">
     <a href="" >
-      <span class="comment-text">{{post.comments.length}}0 Comments</span>
+      <span class="comment-text">{{post.comments.length}} Comments</span>
       <span class="comment-icon">{{paper-icon "chat-bubble-outline" size=22}}</span>
     </a>
   </span>

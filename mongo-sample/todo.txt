@@ -14,3 +14,4 @@ branches
 mobile
 - pwa
 - ionic
+https://balinterdi.com/blog/sorting-arrays-in-ember-dot-js-by-various-criteria/
