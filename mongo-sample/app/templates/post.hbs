@@ -1,7 +1,3 @@
-<div class="container post-page" style="">
-
-{{content.content}}
-{{content.author}}
-{{content.date}}
-
+<div class="container post-page">
+  {{post-block post=content isPostRoute=isPostRoute comment=(action 'saveComment')}}
 </div>

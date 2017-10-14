@@ -1,0 +1,37 @@
+<div  style="margin-left:auto; margin-right:auto;" class="container">
+
+  <div class="content" style="">
+    {{#link-to "post" post.id }}
+      <span style="color:grey;" class="post-date">{{post.date}}</span><br>
+      {{post.content}}
+    {{/link-to}}
+  </div>
+
+  <div class="up-button">
+    <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>
+  </div>
+
+  <div class="votes"style="">
+    {{post.votes}}
+  </div>
+  <div class="down-button">
+    <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=22}}</button>
+
+  </div>
+  <span class=" comments">
+    <a href="" >
+      <span class="comment-text">{{post.comments.length}}0 Comments</span>
+      <span class="comment-icon">{{paper-icon "chat-bubble-outline" size=22}}</span>
+    </a>
+  </span>
+</div>
+{{#if isPostRoute}}
+<div style="">
+  <form {{action 'saveComment' post.comment post.id index on='submit'}} class="form-inline">
+    <div class="full-width comment-input">
+      {{input value=(mut post.comment)  class="full-width comment-input" placeholder="Post comment"}}
+    </div>
+  </form>
+</div>
+{{/if}}
+<hr style="padding-top:0px;">

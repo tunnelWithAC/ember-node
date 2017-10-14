@@ -1,6 +1,7 @@
 //cont { store } = this
-import Ember from 'ember';
 
+import Ember from 'ember';
+const { Logger } = Ember;
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
   //ajax: Ember.inject.service(),
@@ -8,6 +9,7 @@ export default Ember.Controller.extend({
   disableUp: false,
   disableDown: false,
 
+  isPostRoute: true,
 
   postvotes: Ember.observer('uservotes', 'posts', function() {
 
@@ -17,6 +19,15 @@ export default Ember.Controller.extend({
 
 
   actions: {
+    saveComment(text, postID){
+      Logger.log("SENDcomment", text, postID);
+      var comment = this.store.createRecord('comment', {
+        content: text,
+        post: postID,
+        user: 'gobshite'
+      });
+      comment.save();
+    },
     upvote(post, vote){
       return $.ajax({
         //host: 'http://localhost:8081',
@@ -39,7 +50,7 @@ export default Ember.Controller.extend({
      $.ajax({
         //host: 'http://localhost:8081',
         method: 'POST',
-        url: 'http://localhost:8081/api/vote',
+        url: 'http://localhost:8081/api/downvote',
         data: {
           user: this.get('session').userID,
           post: post.id

@@ -1,13 +1,12 @@
-var NoteModel = require('./models/note');
 var postModel = require('./models/post');
-var commentModel = require('./models/post');
+var commentModel = require('./models/comment');
 var userModel = require('./models/user');
 var uservoteModel = require('./models/uservote');
 //var jwt = require('jwt-simple');
 
 module.exports = function (app) {
 
-	app.post('/api/token', function(req, res){
+	app.post('/token', function(req, res){
 
 		console.log(req.body);
 		if(req.body.grant_type === 'password'){
@@ -100,29 +99,18 @@ app.post('/api/posts', function (req, res) {
 });
 
 app.post('/api/comments', function (req, res) {
-	console.log("body" + req.body);
-	postModel.create({
-		content: req.body.post.content,
-		author: req.body.post.author,
+	var content = req.body.comment.content;
+	commentModel.create({
+		post: req.body.comment.post,
+		content: content,
+		user: req.body.comment.user,
 		votes: 0
 	}, function (err) {
 		if (err)
 		res.send(err);
-		console.log("Comment created:" + req.body.post.content);
+		console.log("Comment created:" + content);
 	});
 });
-
-/*app.get('/api/users/:id', function(req, res){
-console.log("PARAMS" + req.params.id);
-userModel.findOne({_id : req.params.id}), function(err, user){
-console.log(user);
-if(err){
-console.error(err);
-} else{
-res.send(user);
-}
-}
-});*/
 
 app.post('/api/users', function (req, res) {
 
@@ -159,10 +147,7 @@ app.post('/api/users', function (req, res) {
 			res.json({ access_token: token, username: username, success: true});*/
 		}
 	}
-});
-
-
-});
+});});
 
 app.get('/api/uservotes', function(req,res) {
 
@@ -236,7 +221,7 @@ app.post('/api/upvote/', function(req,res) {
 });
 
 
-app.post('/api/vote/', function(req,res) {
+app.post('/api/downvote/', function(req,res) {
 	var user = req.body.user;
 	var post = req.body.post;
 	var value = req.body.vote;
@@ -296,17 +281,6 @@ app.post('/api/vote/', function(req,res) {
 		res.status(200).send({data : { status: downvoted }}  );
 	});
 
-});
-
-app.get('/api/notes', function(req,res) {
-	NoteModel.find({},function(err,docs) {
-		if(err) {
-			res.send(err);
-		}
-		else {
-			res.send({data:docs});
-		}
-	});
 });
 
 };

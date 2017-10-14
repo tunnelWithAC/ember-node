@@ -4,8 +4,6 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 export default Ember.Route.extend(AuthenticatedRouteMixin,{
 
 model(params) {
-
   return this.store.find('post', params.post_id);
   },
-
 });
