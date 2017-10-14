@@ -3,12 +3,19 @@
 <div style="" class="">
 	<div class="input-box" style="">
 		{{paper-input class="" maxlength=256 label="Name" value=post onChange=(action (mut post))}}
-		<button {{action "addPost"}}>Add post</button>
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		<button {{action "addPost"}}>Add post<span class="glyphicon glyphicon-arrow-up"></span></button>
 	</div>
 
+{{indexOfSelectedTodo}}
+{{#each todos as |todo|}}
+	{{todo}}{{indexOfSelectedTodo}}
+{{/each}}
 	{{#each posts as |post index|}}
 
-
+	{{#if isTrue "tst"}}
+	isTrue{{postvotes}}
+	{{/if}}
 	<!-- green == content, yellow = votes -->
 
 
@@ -16,12 +23,13 @@
 
 		<div class="content" style="">
 			{{#link-to "post" post.id }}
-			{{post.content}}
-				{{/link-to}}
+				<small style="color:grey;" class="post-date">date</small><br>
+				{{post.content}}
+			{{/link-to}}
 		</div>
 
 		<div class="up-button">
-			<button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=22}}</button>
+			<button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>
 		</div>
 
 		<div class="votes"style="">
