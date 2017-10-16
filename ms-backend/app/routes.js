@@ -88,7 +88,7 @@ app.post('/api/posts', function (req, res) {
 	postModel.create({
 		//title: req.body.post.title,
 		content: req.body.post.content,
-		author: req.body.post.author,
+		user: req.body.post.user,
 		votes: 0
 	}, function (err) {
 		if (err)
@@ -96,6 +96,34 @@ app.post('/api/posts', function (req, res) {
 		// get and return all the todos after you create another
 		console.log("Post Created:" + req.body.post.content);
 	});
+});
+
+app.get('/api/comments/', function(req,res) {
+
+
+	console.log("QUERY" + req.query.post);
+	var post = req.query.post;
+	if(post){
+		commentModel.find({ post: post }, function(err, comment){
+			if(err){
+				console.error(err);
+				res.send(err);
+			} else{
+				console.log({data:comment});
+				res.send({data:comment});
+			}
+		});
+	}
+	else {
+		console.log("find all");
+		commentModel.find(function (err, comments) {
+			if (err) {
+				res.send(err);
+			}
+			res.send({data:comments}); // return all workouts in JSON format
+		});
+	}
+
 });
 
 app.post('/api/comments', function (req, res) {

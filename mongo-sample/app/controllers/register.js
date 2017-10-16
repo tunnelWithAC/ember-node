@@ -22,12 +22,6 @@ export default Ember.Controller.extend({
         }, (err) => {
           alert("Error: " + err.responseText);
         });
-      /*var post = this.store.createRecord('post', {
-        content: text,
-        author: '26 Aug',
-        votes: 0
-      });
-      post.save();*/
     }
   }
 });

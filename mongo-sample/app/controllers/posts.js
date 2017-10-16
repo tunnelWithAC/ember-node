@@ -9,6 +9,13 @@ export default Ember.Controller.extend({
   disableUp: false,
   disableDown: false,
 
+  checkVotes: function(){
+    var posts = this.get('posts');
+    /*posts.forEach(function(post){
+      Ember.Logger.log(post.id);
+    });*/
+  }.property('model.@each.uservotes'),
+
   todos: null,
 
   sortedPosts: Ember.computed.sort('posts', 'sortDefinition'),
@@ -102,9 +109,8 @@ upvote(post, vote){
 
 downvote(post, vote){
   $.ajax({
-    //host: 'http://localhost:8081',
     method: 'POST',
-    url: 'http://localhost:8081/api/vote',
+    url: 'http://localhost:8081/api/downvote',
     data: {
       user: this.get('session').userID,
       post: post.id
@@ -131,13 +137,7 @@ addPost() {
     votes: 0
   });
   post.save();
-},
-addComment(){
-  // var user = this.get.('session').currentUser();
-  var comment = this.store.createRecord('comment', {
-    comment: 'test'
-  });
-  comment.save();
+  this.set('post', '');
 }
 }
 });

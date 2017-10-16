@@ -3,17 +3,17 @@
 }
 @media screen and (min-width: 700px){
   .post-container {
-
     /*border: 1px solid black;*/
     margin-right: auto;
     margin-left: auto;
-    
+
   }
   .content {
     width: 80%;
     font-size: 22px;
     padding-bottom: 2%;
     order: 1;
+    border: 1px solid black;
   }
 
   .post-page {
@@ -24,6 +24,7 @@
     margin-bottom: 12%;
   }
   .votes {
+    border: 1px solid black;
     order: 2;
     width: 10%;
     height: inherit;
@@ -33,16 +34,19 @@
   }
 
   .up-button {
+    border: 1px solid black;
     order: 2;
     margin-top: 2%;
     width: 10%;
     text-align: right;
   }
   .comments {
+    border: 1px solid black;
     width: 80%;
     order: 4;
   }
   .down-button {
+    border: 1px solid black;
     order: 5;
     margin-bottom: 2%;
     width: 10%;

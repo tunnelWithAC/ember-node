@@ -14,7 +14,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin,{
 model() {
   //console.log(this.store.findAll('post'));
   return Ember.RSVP.hash({
-
     posts: this.store.findAll('post'),
     //return uservotes for only currentUser
     uservotes: this.store.findAll('uservote')
@@ -23,19 +22,19 @@ model() {
 
 setupController(controller, model) {
   this._super(...arguments);
-  Ember.set(controller, 'posts', model.posts.sortBy('date'));
+  Ember.set(controller, 'posts', model.posts);
   Ember.set(controller, 'uservotes', model.uservotes);
 
   let uservotes  = controller.get('uservotes').content ;
   var posts = controller.get('posts').content ;
-  uservotes.objectAt(0)._data.post = "tst";
+  //uservotes.objectAt(0)._data.post = "tst";
   //console.log("a", uservotes.objectAt(0)._data.post);
   //uservotes.objectAt(0).push({vote: 'up'});
   //Ember.Logger.log("posts: ",posts);
   //Ember.Logger.log("uservotes", uservotes);
 
 
-  if(uservotes && posts){
+  /*if(uservotes.objectAt(0) && posts.objectAt(0)){
     //Ember.Logger.log("No. uv: ", uservotes.length);
     //Ember.Logger.log("No. posts: ", posts.length);
     //console.log("uv", uservotes.objectAt(0)._data);
@@ -51,7 +50,6 @@ setupController(controller, model) {
           var vote_value = uservotes.objectAt(i)._data.value;
           if(vote_value === 1){
             //console.log("Upvote");
-
             //console.log(uservotes.objectAt(i));
           }
           else {
@@ -59,9 +57,7 @@ setupController(controller, model) {
           }
         }
       });
-
     }
-
     /*uservotes.forEach(function(uservote, index) {
     console.log("First post = ", posts.objectAt(i).post);
     console.log("Looking for ", uservote.data.post);
@@ -79,9 +75,7 @@ find the post associated with each vote
 //
 //mutableComments.pushObject(story);
 
-});*/
+});
+}*/
 }
-
-}
-
 });

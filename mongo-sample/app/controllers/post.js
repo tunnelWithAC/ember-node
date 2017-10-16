@@ -24,8 +24,9 @@ export default Ember.Controller.extend({
 
 
   actions: {
-    saveComment(text, postID){
-      var post_id = this.get('model').id;
+    saveComment(text){
+      var post_id = this.get('post').id;
+      Ember.Logger.log("POst id", post_id);
       var comment = this.store.createRecord('comment', {
         content: text,
         user: 'gobshite'
@@ -33,7 +34,9 @@ export default Ember.Controller.extend({
       var post = this.store.find('post', post_id).then(function(post){
         comment.set('post', post);
         comment.save();
-      })
+        Ember.Logger.log("comment saved", comment.content);
+      });
+
     },
     upvote(post, vote){
       return $.ajax({
@@ -68,26 +71,6 @@ export default Ember.Controller.extend({
           post.decrementProperty('votes');
         }
       });
-    },
-
-    addPost() {
-      /*
-      get index of each hashtag
-      check if each hashtag is followed by a letter/number
-      // https://stackoverflow.com/questions/18042133/check-if-input-is-number-or-letter-javascript
-      get each word that is hashtagged
-      surround each word with link
-      */
-
-      //var file = document.getElementById('file-field').files[0];
-      var post = this.store.createRecord('post', {
-        content: this.get('post'),
-        //image: file,
-        author: '4 Sept',
-        votes: 0
-      });
-      post.save();
-
     }
   }
 });

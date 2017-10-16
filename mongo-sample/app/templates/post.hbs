@@ -1,3 +1,98 @@
-<div class="container post-page">
-  {{post-block post=content isPostRoute=isPostRoute comment=(action 'saveComment')}}
+<div class="" style="border: 1px solid black; ">
+
+<style>
+.custom-container{
+  width: 650px;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+.box-upper{
+  height: 50px;
+}
+.box-lower{
+  height: 35px;
+  border-bottom: 1px solid #506757;
+}
+.green{
+  order: 1;
+  padding-left: 2.5%;
+  font-size: 22px;
+
+  /*background-color: green;*/
+  width: 100%;
+}
+.orange{
+  order: 2;
+  padding-left: 2.5%;
+  /*background-color: orange;*/
+  width: 12%;
+}
+.blue{
+  order: 5;
+  /*background-color: blue;*/
+  width: 64%;
+}
+.yellow{
+  order: 3;
+  width: 12%;
+  text-align: left;
+  /*background-color: yellow;*/
+}
+.red{
+  order: 4;
+  /*background-color: red;*/
+  width: 12%;
+  text-align: left;
+}
+</style>
+
+<div style="" class="">
+  {{!post-block post=content isPostRoute=isPostRoute comment=(action 'saveComment')}}
+  <br>
+
+  <div class="container custom-container">
+    <div class="green box-upper">
+      <span style="color:grey;" class="post-date">{{moment-from-now content.date }}</span><br>
+      {{content}}
+    </div>
+    <div class="red box-lower">
+      <button {{action "upvote" comment.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>
+    </div>
+    <div class="orange box-lower">
+      {{content.votes}}
+    </div>
+    <div class="blue box-lower"></div>
+    <div class="yellow box-lower">
+      <button {{action "downvote" content.id}}>{{paper-icon "arrow-downward" size=22}}</button>
+    </div>
+    <hr>
+  </div>
+  <br>
+  <br>
+
+  {{#each comments as |comment|}}
+
+  <div class="container custom-container">
+    <div class="green box-upper">
+      <span style="color:grey;" class="post-date">{{moment-from-now comment.date }}</span><br>
+      {{comment.content}}
+    </div>
+    <div class="red box-lower">
+      <button {{action "upvote" comment.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>
+    </div>
+    <div class="orange box-lower">
+      {{comment.votes}}
+    </div>
+    <div class="blue box-lower"></div>
+    <div class="yellow box-lower">
+      <button {{action "downvote" comment.id}}>{{paper-icon "arrow-downward" size=22}}</button>
+    </div>
+    <hr>
+  </div>
+
+
+  {{/each}}
+
+</div>
 </div>

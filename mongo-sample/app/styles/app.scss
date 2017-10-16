@@ -1,12 +1,15 @@
+$primary: 'red';
+
 @import 'ember-paper';
 @import 'over500';
 @import 'over700';
+
 
 .post-date {
   font-size: 12px;
 }
 body {
-  /*background-color: gray;*/
+  /*background-color: #ededd1;*/
   padding-bottom: 70px;
 }
 button{

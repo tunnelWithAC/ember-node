@@ -1,4 +1,4 @@
-<div class="container" style="width:750px;">
+<div class="container" style="border: 1px solid black;">
 
 <div style="" class="">
 	<div class="input-box" style="">
@@ -8,19 +8,14 @@
 	</div>
 
 	<div class="sort">
-		{{#paper-button onClick=(action "sortVotes")}}Most Popular{{/paper-button}}
+		{{#paper-button noink=true onClick=(action "sortVotes") primary=true}}Most Popular{{/paper-button}}
   	{{#paper-button noink=true onClick=(action "sortDate") primary=true}}Most Recent{{/paper-button}}
 </div>
 	{{#each sortedPosts as |post index|}}
-
-	{{post-block post=post}}
+	{{post-block post=post upvote=(action 'upvote') downvote=(action 'downvote')}}
 	{{#if isTrue "tst"}}
 	isTrue{{postvotes}}
 	{{/if}}
-	<!-- green == content, yellow = votes -->
-
-
-
 	{{/each}}
 </div>
 </div>
