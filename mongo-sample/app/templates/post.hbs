@@ -48,23 +48,23 @@
 </style>
 
 <div style="" class="">
-  {{!post-block post=content isPostRoute=isPostRoute comment=(action 'saveComment')}}
+  {{!post-block post=post isPostRoute=isPostRoute comment=(action 'saveComment')}}
   <br>
 
   <div class="container custom-container">
     <div class="green box-upper">
-      <span style="color:grey;" class="post-date">{{moment-from-now content.date }}</span><br>
-      {{content}}
+      <span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span><br>
+      {{post.text}}
     </div>
     <div class="red box-lower">
-      <button {{action "upvote" comment.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>
+      <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>
     </div>
     <div class="orange box-lower">
-      {{content.votes}}
+      {{post.votes}}
     </div>
     <div class="blue box-lower"></div>
     <div class="yellow box-lower">
-      <button {{action "downvote" content.id}}>{{paper-icon "arrow-downward" size=22}}</button>
+      <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=22}}</button>
     </div>
     <hr>
   </div>
@@ -76,7 +76,7 @@
   <div class="container custom-container">
     <div class="green box-upper">
       <span style="color:grey;" class="post-date">{{moment-from-now comment.date }}</span><br>
-      {{comment.content}}
+      {{comment.text}}
     </div>
     <div class="red box-lower">
       <button {{action "upvote" comment.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>

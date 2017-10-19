@@ -6,7 +6,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin,{
   Snippets:
 
   includes(){
-  return array.mapBy('content').includes(param)
+  return array.mapBy('text').includes(param)
 }
 
 */
@@ -25,8 +25,8 @@ setupController(controller, model) {
   Ember.set(controller, 'posts', model.posts);
   Ember.set(controller, 'uservotes', model.uservotes);
 
-  let uservotes  = controller.get('uservotes').content ;
-  var posts = controller.get('posts').content ;
+  let uservotes  = controller.get('uservotes').text ;
+  var posts = controller.get('posts').text ;
   //uservotes.objectAt(0)._data.post = "tst";
   //console.log("a", uservotes.objectAt(0)._data.post);
   //uservotes.objectAt(0).push({vote: 'up'});
@@ -61,7 +61,7 @@ setupController(controller, model) {
     /*uservotes.forEach(function(uservote, index) {
     console.log("First post = ", posts.objectAt(i).post);
     console.log("Looking for ", uservote.data.post);
-    for(var i=0; i<posts.content.length; i++){
+    for(var i=0; i<posts.text.length; i++){
     console.log(" Current: " + posts.objectAt(i).post);
     if(uservote.data.post === posts.objectAt(i).post){
     console.log("match found");

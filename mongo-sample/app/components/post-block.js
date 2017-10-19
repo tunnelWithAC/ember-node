@@ -4,6 +4,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   actions: {
     upvote(post, vote){
+      Ember.Logger.log("POST", post);
       this.attrs.upvote(post, vote);
     },
     downvote(post, vote){

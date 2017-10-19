@@ -13,32 +13,26 @@ export default Ember.Controller.extend({
   //post: "testung user vote",
   disableUp: false,
   disableDown: false,
-
   isPostRoute: true,
-
   postvotes: Ember.observer('uservotes', 'posts', function() {
-
   }),
-
-
-
-
   actions: {
     saveComment(text){
       var post_id = this.get('post').id;
       Ember.Logger.log("POst id", post_id);
       var comment = this.store.createRecord('comment', {
-        content: text,
+        text: text,
         user: 'gobshite'
       });
       var post = this.store.find('post', post_id).then(function(post){
         comment.set('post', post);
         comment.save();
-        Ember.Logger.log("comment saved", comment.content);
+        Ember.Logger.log("comment saved", comment.text);
       });
 
     },
     upvote(post, vote){
+      Ember.Logger.log("Controller POST", post);
       return $.ajax({
         //host: 'http://localhost:8081',
         method: 'POST',

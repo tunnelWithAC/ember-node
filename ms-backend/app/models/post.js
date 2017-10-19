@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 module.exports = mongoose.model('post', {
     title: 'string',
-    content: 'string',
+    text: 'string',
     user: 'string',
     visible: {type: 'boolean', default: true},
     votes: { type: 'number', default: 0 },

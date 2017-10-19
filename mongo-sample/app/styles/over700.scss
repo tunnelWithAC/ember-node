@@ -1,0 +1,108 @@
+@media screen and (min-width: 700px){
+  .post-container {
+    /*border: 1px solid black;*/
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+  .content {
+    width: 100%;
+    font-size: 16px;
+    padding-bottom: 2%;
+    order: 1;
+    /*border: 1px solid black;*/
+  }
+
+  .post-page {
+    margin-top: 2.5%;
+  }
+  .wrapper {
+    margin-top: 12%;
+    margin-bottom: 12%;
+  }
+  .votes {
+    height: 55px;
+    /*border: 1px solid black;*/
+    order: 2;
+    width: 10%;
+    height: inherit;
+    padding-top: 31px;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  .up-button {
+    order: 2;
+    width: 10%;
+    height: 100%;
+    vertical-align: top;
+    text-align: right;
+  }
+  .down-button {
+    order: 5;
+    width: 10%;
+    height: 100%;
+    vertical-align: bottom;
+    text-align: right;
+  }
+  .comments {
+    /*border: 1px solid black;*/
+    width: 80%;
+    order: 4;
+  }
+  .report {
+    order: 5;
+    width: 20%;
+    text-align: right;
+  }
+  .report-icon {
+    display: none;
+  }
+}
+
+/*
+xss 5
+xs 10
+s 20
+sm 30
+m 40
+ml 50
+l 60
+xl 75
+xxl 85
+full 100
+
+*/
+/*
+hide content -> display:none;
+
+classes:
+post 1 /1
+votes 2 /2
+buttons 3/ 4
+comment 4 / 3
+report 5
+
+turn table columns into rows
+table, thead, tbody, th, td, tr {
+display: block;
+
+bigger icons and stacked (for vote buttons)
+.first .second {
+display: inline-block;
+width:
+}
+.first, .icon {
+width:
+height:
+}
+}
+*/
+
+/*
+.container {
+width: 700px;
+margin-right: auto;
+margin-left: auto;
+}
+*/

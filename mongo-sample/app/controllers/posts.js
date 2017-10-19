@@ -4,10 +4,6 @@ import EmberObject, { computed } from '@ember/object'
 
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
-  //ajax: Ember.inject.service(),
-  //post: "testung user vote",
-  disableUp: false,
-  disableDown: false,
 
   checkVotes: function(){
     var posts = this.get('posts');
@@ -16,29 +12,10 @@ export default Ember.Controller.extend({
     });*/
   }.property('model.@each.uservotes'),
 
-  todos: null,
-
   sortedPosts: Ember.computed.sort('posts', 'sortDefinition'),
   sortBy: 'date:desc', // default sort by date
-  dateSort: 'date:desc',
-  voteSort: 'votes:desc',
   sortDefinition: Ember.computed('sortBy', function() {
     return [ this.get('sortBy') ];
-  }),
-
-  init() {
-
-    this.set('todos', [
-      EmberObject.create({ isDone: true }),
-      EmberObject.create({ isDone: false }),
-      EmberObject.create({ isDone: true }),
-    ]);
-  },
-
-  selectedTodo: null,
-  indexOfSelectedTodo: computed('selectedTodo', 'todos.[]', function() {
-    console.log(this.get('selectedTodo'));
-    return this.get('todos').indexOf(this.get('selectedTodo'));
   }),
 
   postvotes: Ember.observer('uservotes', 'posts', function() {
@@ -69,26 +46,6 @@ export default Ember.Controller.extend({
     sortVotes(){
       this.set('sortBy', 'votes:desc');
     },
-    saveComment(post, comment, index){
-      Ember.Logger.log("Action called", post, comment, index);
-      let posts  = this.get('posts');
-      Ember.Logger.log(posts.objectAt(index));
-      //this.set(posts.objectAt(index).comment, "");
-      /*return $.ajax({
-      method: 'POST',
-      url: 'http://localhost:8081/api/comments',
-      data: {
-      vote: vote,
-      user: this.get('session').userID,
-      post: post.id
-    }
-  }).then((resp) => {
-  this.set('disableUp', resp.data.status);
-  if(resp.data.status){
-  post.incrementProperty('votes');
-}
-});*/
-},
 upvote(post, vote){
   return $.ajax({
     //host: 'http://localhost:8081',
@@ -131,7 +88,7 @@ addPost() {
   surround each word with link
   */
   var post = this.store.createRecord('post', {
-    content: this.get('post'),
+    text: this.get('post'),
     //image: file,
     author: '4 Sept',
     votes: 0

@@ -1,22 +1,27 @@
-<div  style="margin-left:auto; margin-right:auto;" class="container">
+<div  style="" class="container">
   <div class="content" style="">
     <span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span><br>
-    {{post.content}}
+    {{post.text}}
   </div>
   <div class="up-button">
-    <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=22 style="color:green;"}}</button>
+
   </div>
-  <div class="votes"style="">
-    {{post.votes}}
+  <div class="votes">
+    {{!post.votes}}
   </div>
   <div class="down-button">
-    <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=22}}</button>
+    <button {{action "downvote" post.id}}>{{!paper-icon "arrow-downward" size=22}}</button>
   </div>
   <span class=" comments">
+    <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=18 }}</button>
+    <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=18}}</button>
+    {{post.votes}}
     {{#link-to "post" post.id }}
-    <span class="comment-text">{{post.comments.length}} Comments</span>
-    <span class="comment-icon">{{paper-icon "chat-bubble-outline" size=22}}</span>
+    <span class="comment-text">{{post.comments.length}} Comments
+    </span>
+    <span class="comment-icon">{{paper-icon "chat-bubble-outline" size=18}}</span>
     {{/link-to}}
+
   </span>
 </div>
 {{#if isPostRoute}}
