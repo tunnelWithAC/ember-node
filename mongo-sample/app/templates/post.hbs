@@ -1,5 +1,4 @@
-<div class="" style="border: 1px solid black; ">
-
+<div class="container" style="width:700px;">
 <style>
 .custom-container{
   width: 650px;
@@ -46,11 +45,11 @@
   text-align: left;
 }
 </style>
-
-<div style="" class="">
-  {{!post-block post=post isPostRoute=isPostRoute comment=(action 'saveComment')}}
+Back button
+<div style="padding-top:2.5%;" class="">
+  {{post-block post=post isPostRoute=isPostRoute comment=(action 'saveComment')}}
   <br>
-
+  <!--
   <div class="container custom-container">
     <div class="green box-upper">
       <span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span><br>
@@ -67,7 +66,7 @@
       <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=22}}</button>
     </div>
     <hr>
-  </div>
+  </div>-->
   <br>
   <br>
 

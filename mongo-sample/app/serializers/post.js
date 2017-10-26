@@ -4,14 +4,12 @@ export default DS.RESTSerializer.extend({
 	primaryKey: '_id',
 
   normalizeResponse(store, primaryModelClass, payload, id, requestType) {
-		Ember.Logger.log("POST Serializer", payload.data);
+		//Ember.Logger.log("POST Serializer", payload.data);
 		payload = { posts: payload.data };
     return this._super(store, primaryModelClass, payload, id, requestType);
   },
   normalizeSingleResponse(store, primaryModelClass, payload, id) {
-		payload.data = payload.posts;
-		delete payload.posts;
-		payload = { post: payload.data };
+		payload = { post: payload.posts };
     return this._super(store, primaryModelClass, payload, id);
   },
 

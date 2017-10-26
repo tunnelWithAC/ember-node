@@ -1,10 +1,13 @@
-<div class="container" style="width:650px;">
-
+<div class="container post-container" style="">
+<!-- <div class="circle"></div>  Only display circle on created posts -->
 <div  class="">
 	<div class="input-box" style="">
-		{{paper-input class="" maxlength=256 label="Name" value=post onChange=(action (mut post))}}
-		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		<button {{action "addPost"}}>Add post<span class="glyphicon glyphicon-arrow-up"></span></button>
+		 {{input type="text" value=post maxlength="256" placeholder="Your post here"}}
+		 {{#if postDirty}}
+		 	<br>
+		 	{{#paper-button noink=true onClick=(action "addPost") primary=true}}Add{{/paper-button}}
+		 	<small>{{charactersRemaining}}</small>
+		 {{/if}}
 	</div>
 
 	<div class="sort">
@@ -12,7 +15,7 @@
   	{{#paper-button noink=true onClick=(action "sortDate") primary=true}}Most Recent{{/paper-button}}
 </div>
 	{{#each sortedPosts as |post index|}}
-	{{post-block post=post upvote=(action 'upvote') downvote=(action 'downvote')}}
+	{{post-block post=post upvote=(action 'upvote') notPostRoute=true downvote=(action 'downvote')}}
 	{{#if isTrue "tst"}}
 	isTrue{{postvotes}}
 	{{/if}}

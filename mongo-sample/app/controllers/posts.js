@@ -4,13 +4,10 @@ import EmberObject, { computed } from '@ember/object'
 
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
+  post: '',
 
-  checkVotes: function(){
-    var posts = this.get('posts');
-    /*posts.forEach(function(post){
-      Ember.Logger.log(post.id);
-    });*/
-  }.property('model.@each.uservotes'),
+  init: function() {
+  },
 
   sortedPosts: Ember.computed.sort('posts', 'sortDefinition'),
   sortBy: 'date:desc', // default sort by date
@@ -18,83 +15,89 @@ export default Ember.Controller.extend({
     return [ this.get('sortBy') ];
   }),
 
-  postvotes: Ember.observer('uservotes', 'posts', function() {
-    console.log("Posts: ", this.get('posts'));
-    let posts = this.get('posts');
-    let uservotes = this.get('uservotes');
-    var uv = Ember.A();
-    if(uservotes){
-      uservotes.forEach(function(uservote){
-        console.log(uservote.id);
-        uv.pushObject(uservote.id);
-      });
-    }
-    console.log(uv);
-    return "test";
-
+  charactersRemaining: Ember.computed('post', function() {
+    let text = this.get('post').length;
+    return 256 - this.get('post').length;
   }),
 
-  isTrue: function(param) {
-    console.log(param);
-    return false;
-  }.property('uservotes'),
+  postDirty: Ember.computed('charactersRemaining', function() {
+    if(this.get('charactersRemaining') === 256){
+      Ember.Logger.log("Clean");
+      return false;
+    } else {
+      Ember.Logger.log("Dirty");
+      return true;
+    }
+  }),
 
   actions: {
     sortDate(){
       this.set('sortBy', 'date:desc');
+      var u = this.get('session').get('store');
+      Ember.Logger.log("u" , u);
+      //598a2c2fd5937c37eb53b9cd
+      var session_data = this.get('session').get('session').get('content');
+      var u_id = session_data.authenticated.user.id;
+      Ember.Logger.log("cookie:", u_id);
     },
     sortVotes(){
       this.set('sortBy', 'votes:desc');
     },
-upvote(post, vote){
-  return $.ajax({
-    //host: 'http://localhost:8081',
-    method: 'POST',
-    url: 'http://localhost:8081/api/upvote',
-    data: {
-      vote: vote,
-      user: this.get('session').userID,
-      post: post.id
-    }
-  }).then((resp) => {
-    this.set('disableUp', resp.data.status);
-    if(resp.data.status){
-      post.incrementProperty('votes');
-    }
-  });
-},
+    upvote(post, vote){
+      return $.ajax({
+        method: 'POST',
+        url: 'http://localhost:8081/api/upvote',
+        data: {
+          /*vote: vote,*/
+          user: 'hardcodefornow',
+          post: post
+        }
+      }).then((resp) => {
+        Ember.Logger.log('RESP \n', resp.data.status);
+        this.set('disableUp', resp.data.status);
+        if(resp.data.status){
+          Ember.Logger.log("changing vote", post);
+          this.store.find('post', post).then(function(post){
+            post.incrementProperty('votes');
+          });
+        }
+      });
+    },
 
-downvote(post, vote){
-  $.ajax({
-    method: 'POST',
-    url: 'http://localhost:8081/api/downvote',
-    data: {
-      user: this.get('session').userID,
-      post: post.id
+    downvote(post, vote){
+      Ember.Logger.log("Params: ", post, vote);
+      $.ajax({
+        method: 'POST',
+        url: 'http://localhost:8081/api/downvote',
+        data: {
+          user: 'hardcodefornow',
+          post: post
+        }
+      }).then((resp) => {
+        Ember.Logger.log('RESP \n', resp.data.status);
+        this.set('disableDown', resp.data.status);
+        if(resp.data.status){
+          Ember.Logger.log("changing vote", post);
+          this.store.find('post', post).then(function(post){
+            post.decrementProperty('votes');
+          });
+        }
+      });
+    },
+    addPost() {
+      var text = this.get('post');
+      if(text.length > 256){
+        text = text.substring(0,256);
+      }
+      var session_data = this.get('session').get('session').get('content');
+      var u_id = session_data.authenticated.user.id;
+      var post = this.store.createRecord('post', {
+        text: this.get('post'),
+        author: u_id,
+        votes: 0
+      });
+      post.save();
+      this.set('post', '');
     }
-  }).then((resp) => {
-    this.set('disableDown', resp.data.status);
-    if(resp.data.status){
-      post.decrementProperty('votes');
-    }
-  });
-},
-addPost() {
-  /*
-  get index of each hashtag
-  check if each hashtag is followed by a letter/number
-  // https://stackoverflow.com/questions/18042133/check-if-input-is-number-or-letter-javascript
-  get each word that is hashtagged
-  surround each word with link
-  */
-  var post = this.store.createRecord('post', {
-    text: this.get('post'),
-    //image: file,
-    author: '4 Sept',
-    votes: 0
-  });
-  post.save();
-  this.set('post', '');
-}
-}
+  }
 });

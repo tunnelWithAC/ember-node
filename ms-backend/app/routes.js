@@ -87,14 +87,14 @@ app.post('/api/posts', function (req, res) {
 	*/
 	postModel.create({
 		//title: req.body.post.title,
-		content: req.body.post.content,
+		text: req.body.post.text,
 		user: req.body.post.user,
 		votes: 0
 	}, function (err) {
 		if (err)
 		res.send(err);
 		// get and return all the todos after you create another
-		console.log("Post Created:" + req.body.post.content);
+		console.log("Post Created:" + req.body.post.text);
 	});
 });
 
@@ -127,18 +127,18 @@ app.get('/api/comments/', function(req,res) {
 });
 
 app.post('/api/comments', function (req, res) {
-	var content = req.body.comment.content;
+	var text = req.body.comment.text;
 	var post = req.body.comment.post;
 	console.log("Post for comment >>>", post);
 	commentModel.create({
 		post: req.body.comment.post,
-		content: content,
+		text: text,
 		user: req.body.comment.user,
 		votes: 0
 	}, function (err) {
 		if (err)
 		res.send(err);
-		console.log("Comment created:" + content);
+		console.log("Comment created:" + text);
 	});
 });
 
@@ -257,6 +257,7 @@ app.post('/api/downvote/', function(req,res) {
 	var value = req.body.vote;
 	var downvoted = false;
 
+	console.log("REQUEST { USER:" + user + " \n POST:" + post + " \n VALUE " + value + "}");
 	// set the value of the uservote to 1, 0 , or -1
 	uservoteModel.findOne({ user: user, post: post},function(err,uservote) {
 		if(err) {
@@ -268,6 +269,7 @@ app.post('/api/downvote/', function(req,res) {
 			if(uservote.value !== -1){
 				downvoted = true;
 			}
+
 			uservote.value = -1;
 			uservote.save(function(err) {
 				if (err)
@@ -288,16 +290,17 @@ app.post('/api/downvote/', function(req,res) {
 			downvoted = true;
 		}
 
-		console.log("downvoted: " + downvoted);
+		console.log("downvoted:" + downvoted);
 		if(downvoted){
-			console.log("downvoted post value");
+			console.log("Downvoting post...");
 			// update the value of the post votesdownvoted
 			postModel.findOne({ _id: post}, function(err, post) {
 				if(err) {
 					res.send(err);
 				}
 				else{
-					console.log("Post" + post);
+					console.log("POST QUERY RESULT \n" + post);
+					console.log("Reducing post value");
 					post.totalVotes++;
 					post.votes--;
 					if(post.votes <= -5){

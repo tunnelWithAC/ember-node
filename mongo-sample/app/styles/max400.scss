@@ -1,0 +1,55 @@
+@media screen and (max-width: 400px) {
+  .post-container {
+    /*width:100%;*/
+  }
+  .content {
+    width:100%;
+    font-size: 16px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    padding-bottom: 2%;
+    order: 1;
+  }
+  .votes {
+    order: 2;
+    margin-left: 2.5%;
+    width: 10%;
+  }
+  .up-button {
+    order: 3;
+    width: 10%;
+  }
+  .down-button {
+    order: 4;
+    width: 10%;
+  }
+  .comments {
+    padding-left: 12.5%;
+    order: 5;
+    width: 70%;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  .comment-input {
+    display: none;
+  }
+  .report {
+    order: 10;
+    width: 10%;
+    text-align: right;
+  }
+  .container {
+    padding: 0%;
+    margin: 0px;
+  }
+
+  .report-text {
+    display: none;
+  }
+  .material-icons {
+    font-size: 8px;
+  }
+  .comment-text {
+    display: none;
+  }
+}

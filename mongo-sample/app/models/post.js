@@ -6,7 +6,10 @@ export default DS.Model.extend({
 	//user: DS.attr('string'),
 	date: DS.attr('date'),
 	visible: DS.attr('boolean'),
+	upvoted: DS.attr('boolean'),
+	downvoted: DS.attr('boolean'),
 	votes: DS.attr('number'),
+	countComments: DS.attr('number'),
 
 	comments: DS.hasMany('comment'),
 	user: DS.belongsTo('user')

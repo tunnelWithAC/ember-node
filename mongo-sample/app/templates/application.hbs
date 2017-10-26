@@ -1,8 +1,10 @@
 {{#paper-toolbar}}
   <div class="md-toolbar-tools">
+    <div class="">
     {{#if session.isAuthenticated}}
       {{#link-to "posts" }}{{#paper-button}}Posts{{/paper-button}}{{/link-to}}
     {{/if}}
+    </div>
     <div class="paper-right">
 
       {{#if session.isAuthenticated}}
@@ -16,4 +18,11 @@
   </div>
 {{/paper-toolbar}}
 
+<!--
+<div class="container full-width">
+
+<div class="block timeline-buttons"></div>
+</div class="login-logout"></div>
+</div>
+-->
 {{outlet}}

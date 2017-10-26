@@ -3,21 +3,24 @@
     <span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span><br>
     {{post.text}}
   </div>
-  <div class="up-button">
-
-  </div>
   <div class="votes">
-    {{!post.votes}}
+    {{post.votes}}
+  </div>
+  <div class="up-button">
+    {{#if post.upvoted}}
+    {{else}}
+      <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=18 }}</button>
+    {{/if}}
   </div>
   <div class="down-button">
-    <button {{action "downvote" post.id}}>{{!paper-icon "arrow-downward" size=22}}</button>
+    {{#if post.downvoted}}
+    {{else}}
+        <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=18}} </button>
+    {{/if}}
   </div>
   <span class=" comments">
-    <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=18 }}</button>
-    <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=18}}</button>
-    {{post.votes}}
     {{#link-to "post" post.id }}
-    <span class="comment-text">{{post.comments.length}} Comments
+    <span class="comment-text">{{post.comments.length}}
     </span>
     <span class="comment-icon">{{paper-icon "chat-bubble-outline" size=18}}</span>
     {{/link-to}}
@@ -25,6 +28,7 @@
   </span>
 </div>
 {{#if isPostRoute}}
+<br>
 <div style="">
   <form {{action 'saveComment' post.comment index on='submit'}} class="form-inline">
     <div class="full-width comment-input">
@@ -33,4 +37,6 @@
   </form>
 </div>
 {{/if}}
-<hr style="padding-top:0px;">
+{{#if notPostRoute}}
+<hr class="post">
+{{/if}}

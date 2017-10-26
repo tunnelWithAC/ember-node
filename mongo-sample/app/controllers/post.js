@@ -5,7 +5,6 @@ const { Logger } = Ember;
 export default Ember.Controller.extend({
 
   init: function() {
-    Ember.Logger.log("Model", this.get('posts'));
   //this.get('posts').sortBy('date'); //Requires the model to be of Ember.Array Type
   },
   session: Ember.inject.service('session'),
