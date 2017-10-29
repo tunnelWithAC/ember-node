@@ -1,0 +1,43 @@
+<style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  color: black;
+  min-width: 200px;
+  width: 300px;
+  max-width: 400px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  font-size: 14px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+
+<div class="dropdown">
+  <a {{action 'displayNotifications'}}>
+    {{#if newNotification}}
+      {{paper-icon 'notifications active'}}
+    {{else}}
+      {{paper-icon 'notifications none'}}
+    {{/if}}
+  </a>
+  {{#if displayNotifications}}
+  <div class="dropdown-content" style="display: block;">
+    10 people have voted on your post.
+    <hr>
+    Someone commented on a post that you follow
+    <hr>
+    Your post hit one hundred points. Congratulations :D
+    <hr>
+  </div>
+  {{/if}}
+</div>

@@ -1,22 +1,56 @@
 <div  style="" class="container">
   <div class="content" style="">
-    <span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span><br>
-    {{post.text}}
+
+    <div class="container" styke="width:100%;">
+
+      <div class="content-image circle">
+
+      </div>
+      <div class="content-text">
+        {{post.text}}
+      </div>
+    </div>
+
+    <style>
+    .content-text{
+      display: inline-block;
+      width: 80%;
+      margin: 0px;
+      padding: 0px;
+      padding-left: 2.5%;
+      min-height: 30px;
+      /*background-color: blue;*/
+
+    }
+    .content-image{
+      display: inline-block;
+      width: 20%;
+      margin: 0px;
+      padding: 0px;
+
+      min-height: 30px;
+      /*background-color: green;*/
+    }
+    </style>
+
   </div>
   <div class="votes">
     {{post.votes}}
+    <br><span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span>
   </div>
   <div class="up-button">
     {{#if post.upvoted}}
     {{else}}
-      <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=18 }}</button>
     {{/if}}
+    <button {{action "upvote" post.id}}>{{paper-icon "arrow-upward" size=18 }}</button>
+
   </div>
   <div class="down-button">
     {{#if post.downvoted}}
     {{else}}
-        <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=18}} </button>
     {{/if}}
+    <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=18}} </button>
+
   </div>
   <span class=" comments">
     {{#link-to "post" post.id }}
@@ -24,7 +58,7 @@
     </span>
     <span class="comment-icon">{{paper-icon "chat-bubble-outline" size=18}}</span>
     {{/link-to}}
-
+    Follow button
   </span>
 </div>
 {{#if isPostRoute}}

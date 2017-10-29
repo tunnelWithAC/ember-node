@@ -11,10 +11,10 @@ export default Ember.Route.extend(AuthenticatedRouteMixin,{
     return Ember.RSVP.hash({
       posts: this.store.findAll('post'),
       //return uservotes for only currentUser
-      /*uservotes: this.store.query('uservote', {
+      uservotes: this.store.query('uservote', {
         user: u_id
-      })*/
-      uservotes: this.store.findAll('uservote')
+      })
+      //uservotes: this.store.findAll('uservote')
     });
   },
 

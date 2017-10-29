@@ -7,11 +7,56 @@ $primary: 'red';
 @import 'over700';
 @import 'post-icons';
 
+[data-ember-action] {
+    cursor: pointer;
+}
+
+/* For navbar */
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+}
+.nav-item {
+    margin: 2px;
+    padding-top: 0.5%;
+    height: 50px;
+
+}
+.left-space {
+  order: 1;
+  width: 30%;
+}
+.refresh{
+  order: -1;
+  width: 10%;
+  padding-left: 2.5%;
+}
+.posts {
+  order: 2;
+  width: 10%;
+  text-align: center;
+}
+.notification {
+  order: 3;
+  width: 10%;
+  text-align: center;
+}
+.right-space {
+  order: 4;
+  width: 20%;
+}
+.login {
+  order: 5;
+  width: 20%;
+  text-align: right;
+  padding-right: 2.5%;
+}
+
+
 div.circle{
-  border-radius: 15px;
-  height: 30px;
-  width: 30px;
-  padding-top: 10px;
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
   border: 1px solid grey;
   display: inline-block;
 }
@@ -29,10 +74,30 @@ div.input-main {
 body {
   /*background-color: #ededd1;*/
   padding-bottom: 70px;
+  margin: 0;
 }
 button{
   background-color:white;
   border:none;
+}
+.background-image{
+  height: 100vh;
+  width: 100vw;
+
+  background-color: grey;
+  background-image: url(../img/homescreen.jpg);
+  background-size: cover;
+
+  background-blend-mode: lighten; /*luminosity */
+
+  /*
+    background: url(../img/),
+    linear-gradient(steelblue, firebrick);
+    background-blend-mode: overlay;
+
+    background: url(../img/img1.jp),
+    url(../img/img2.jp);
+  */
 }
 .input-box{
   border: 1px solid grey;

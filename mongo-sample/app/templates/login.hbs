@@ -6,3 +6,29 @@
   {{#paper-button raised=true onClick=(action "login")}}Login{{/paper-button}}
   {{errorMessage}}
 </div>
+<style>
+
+/*
+background #cec2d3 #c8e1ef
+active-input: #89847f #646464
+input #646464 #524f4c
+
+*/
+.login-form{
+  background-color: #cec2d3;
+  width: 100%;
+  height: 100%;
+}
+input[type="text"].login-input {
+  background-color : #646464;
+  border: 0px;
+  border-radius: 1.5px;
+}
+input[type="text"]:focus.login-input {
+  background-color : #89847f;
+}
+</style>
+<div class="wrapper form-signin login-form">
+  <input type="text" class="login-input" id="email"><br>
+  <input type="text" class="login-input" id="password">
+</div>

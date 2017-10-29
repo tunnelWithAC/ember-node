@@ -1,24 +1,25 @@
 <div class="container post-container" style="">
-<!-- <div class="circle"></div>  Only display circle on created posts -->
-<div  class="">
-	<div class="input-box" style="">
-		 {{input type="text" value=post maxlength="256" placeholder="Your post here"}}
-		 {{#if postDirty}}
-		 	<br>
-		 	{{#paper-button noink=true onClick=(action "addPost") primary=true}}Add{{/paper-button}}
-		 	<small>{{charactersRemaining}}</small>
-		 {{/if}}
-	</div>
-
 	<div class="sort">
 		{{#paper-button noink=true onClick=(action "sortVotes") primary=true}}Most Popular{{/paper-button}}
-  	{{#paper-button noink=true onClick=(action "sortDate") primary=true}}Most Recent{{/paper-button}}
-</div>
-	{{#each sortedPosts as |post index|}}
-	{{post-block post=post upvote=(action 'upvote') notPostRoute=true downvote=(action 'downvote')}}
-	{{#if isTrue "tst"}}
-	isTrue{{postvotes}}
-	{{/if}}
-	{{/each}}
-</div>
+		{{#paper-button noink=true onClick=(action "sortDate") primary=true}}Most Recent{{/paper-button}}
+	</div>
+	<!-- <div class="circle"></div>  Only display circle on created posts -->
+	<div  class="">
+		<div class="input-box" style="">
+			{{input type="text" value=post maxlength="256" placeholder="Your post here"}}
+			{{#if postDirty}}
+			<br>
+			{{#paper-button noink=true onClick=(action "addPost") primary=true}}Add{{/paper-button}}
+			<small>{{charactersRemaining}}</small>
+			{{/if}}
+		</div>
+
+
+		{{#each sortedPosts as |post index|}}
+		{{post-block post=post upvote=(action 'upvote') notPostRoute=true downvote=(action 'downvote')}}
+		{{#if isTrue "tst"}}
+		isTrue{{postvotes}}
+		{{/if}}
+		{{/each}}
+	</div>
 </div>

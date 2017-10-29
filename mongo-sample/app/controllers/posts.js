@@ -9,6 +9,12 @@ export default Ember.Controller.extend({
   init: function() {
   },
 
+  u_id: Ember.computed('session', function(){
+    var session_data = this.get('session').get('session').get('content');
+    var u_id = session_data.authenticated.user.id;
+    return u_id;
+  }),
+
   sortedPosts: Ember.computed.sort('posts', 'sortDefinition'),
   sortBy: 'date:desc', // default sort by date
   sortDefinition: Ember.computed('sortBy', function() {
@@ -33,23 +39,18 @@ export default Ember.Controller.extend({
   actions: {
     sortDate(){
       this.set('sortBy', 'date:desc');
-      var u = this.get('session').get('store');
-      Ember.Logger.log("u" , u);
-      //598a2c2fd5937c37eb53b9cd
-      var session_data = this.get('session').get('session').get('content');
-      var u_id = session_data.authenticated.user.id;
-      Ember.Logger.log("cookie:", u_id);
     },
     sortVotes(){
       this.set('sortBy', 'votes:desc');
     },
     upvote(post, vote){
+      var u_id = this.get('u_id');
       return $.ajax({
         method: 'POST',
         url: 'http://localhost:8081/api/upvote',
         data: {
           /*vote: vote,*/
-          user: 'hardcodefornow',
+          user: u_id,
           post: post
         }
       }).then((resp) => {
@@ -59,25 +60,25 @@ export default Ember.Controller.extend({
           Ember.Logger.log("changing vote", post);
           this.store.find('post', post).then(function(post){
             post.incrementProperty('votes');
+            post.set('upvoted', true);
+            post.set('downvoted', true);
           });
         }
       });
     },
 
     downvote(post, vote){
+      var u_id = this.get('u_id');
       Ember.Logger.log("Params: ", post, vote);
       $.ajax({
         method: 'POST',
         url: 'http://localhost:8081/api/downvote',
         data: {
-          user: 'hardcodefornow',
+          user: u_id,
           post: post
         }
       }).then((resp) => {
-        Ember.Logger.log('RESP \n', resp.data.status);
-        this.set('disableDown', resp.data.status);
         if(resp.data.status){
-          Ember.Logger.log("changing vote", post);
           this.store.find('post', post).then(function(post){
             post.decrementProperty('votes');
           });
@@ -85,15 +86,14 @@ export default Ember.Controller.extend({
       });
     },
     addPost() {
+      var u_id = this.get('u_id');
       var text = this.get('post');
       if(text.length > 256){
         text = text.substring(0,256);
       }
-      var session_data = this.get('session').get('session').get('content');
-      var u_id = session_data.authenticated.user.id;
       var post = this.store.createRecord('post', {
         text: this.get('post'),
-        author: u_id,
+        user: u_id,
         votes: 0
       });
       post.save();

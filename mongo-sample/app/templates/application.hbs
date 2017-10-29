@@ -1,8 +1,25 @@
+<div class="flex-container">
+  <div class="nav-item left-space"></div>
+  <div class="nav-item refresh"><a {{action 'reload'}}> {{paper-icon 'sync'}} </a></div>
+  <div class="nav-item posts">{{#link-to "posts" }}Posts{{/link-to}}</div>
+  <div class="nav-item notification">{{notification-nav newNotification=newNotification}}</div>
+  <div class="nav-item right-space"></div>
+  <div class="nav-item login">
+    {{#if session.isAuthenticated}}
+      {{#link-to "profile" }}{{paper-icon 'person'}}{{/link-to}}
+      Logout
+    {{else}}
+      {{#link-to "register" }}Register{{/link-to}}
+      {{#link-to "login" }}Login{{/link-to}}
+    {{/if}}
+  </div>
+</div>
+
 {{#paper-toolbar}}
   <div class="md-toolbar-tools">
     <div class="">
     {{#if session.isAuthenticated}}
-      {{#link-to "posts" }}{{#paper-button}}Posts{{/paper-button}}{{/link-to}}
+      {{notification-nav newNotification=newNotification}}
     {{/if}}
     </div>
     <div class="paper-right">

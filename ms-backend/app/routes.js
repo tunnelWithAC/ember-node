@@ -5,6 +5,14 @@ var uservoteModel = require('./models/uservote');
 //var jwt = require('jwt-simple');
 
 module.exports = function (app) {
+	function getPosts(res) {
+		postModel.find(function (err, posts) {
+			if (err) {
+				res.send(err);
+			}
+			res.send({data:posts}); // return all workouts in JSON format
+		});
+	};
 
 	app.post('/token', function(req, res){
 
@@ -46,15 +54,6 @@ module.exports = function (app) {
 		res.status(200).send(' { "error" : "unsupported_grant_type", display_message : "Failed to log in" }');
 	}
 });
-
-function getPosts(res) {
-	postModel.find(function (err, posts) {
-		if (err) {
-			res.send(err);
-		}
-		res.send({data:posts}); // return all workouts in JSON format
-	});
-};
 
 app.get('/api/posts', function(req,res) {
 	getPosts(res);
@@ -99,7 +98,6 @@ app.post('/api/posts', function (req, res) {
 });
 
 app.get('/api/comments/', function(req,res) {
-
 
 	console.log("QUERY" + req.query.post);
 	var post = req.query.post;
@@ -179,15 +177,31 @@ app.post('/api/users', function (req, res) {
 	}
 });});
 
-app.get('/api/uservotes', function(req,res) {
+app.get('/api/uservotes/', function(req,res) {
 
-	uservoteModel.find(function(err,uservotes) {
-		if(err) {
-			res.send(err);
-		}
-		res.send({data:uservotes}); // return all workouts in JSON format
-		//res.status(200).send(' { "response" : "ok" }');
-	});
+	console.log("QUERY" + req.query.user);
+	var user = req.query.user;
+	if(user){
+		uservoteModel.find({ user: user }, function(err, uservotes){
+			if(err){
+				console.error(err);
+				res.send(err);
+			} else{
+				console.log({data:uservotes});
+				res.send({data:uservotes});
+			}
+		});
+	}
+	else{
+		uservoteModel.find(function(err,uservotes) {
+			if(err) {
+				res.send(err);
+			}
+			res.send({data:uservotes}); // return all workouts in JSON format
+			//res.status(200).send(' { "response" : "ok" }');
+		});
+	}
+
 });
 
 app.post('/api/upvote/', function(req,res) {
@@ -195,7 +209,7 @@ app.post('/api/upvote/', function(req,res) {
 	var p = req.body.post;
 	var updated = 0;
 	var upvoted = false;
-
+	console.log('\n\nUser\n'+ u);
 	// set the value of the uservote to 1, 0 , or -1
 	uservoteModel.findOne({ user: u, post: p},function(err,uservote) {
 		if(err) {
