@@ -1,4 +1,4 @@
- /*}*/
+/*}*/
 $primary: 'red';
 
 @import 'ember-paper';
@@ -8,20 +8,20 @@ $primary: 'red';
 @import 'post-icons';
 
 [data-ember-action] {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* For navbar */
 .flex-container {
-    display: -webkit-flex;
-    display: flex;
+  display: -webkit-flex;
+  display: flex;
 }
 .nav-item {
-    margin: 2px;
-    padding-top: 0.5%;
-    height: 50px;
-
+  margin: 2px;
+  padding-top: 0.5%;
+  height: 50px;
 }
+
 .left-space {
   order: 1;
   width: 30%;
@@ -52,7 +52,10 @@ $primary: 'red';
   padding-right: 2.5%;
 }
 
-
+button.timeline-btn{
+  color: grey;
+  background-color: white;
+}
 div.circle{
   border-radius: 30px;
   height: 60px;
@@ -91,17 +94,17 @@ button{
   background-blend-mode: lighten; /*luminosity */
 
   /*
-    background: url(../img/),
-    linear-gradient(steelblue, firebrick);
-    background-blend-mode: overlay;
+  background: url(../img/),
+  linear-gradient(steelblue, firebrick);
+  background-blend-mode: overlay;
 
-    background: url(../img/img1.jp),
-    url(../img/img2.jp);
+  background: url(../img/img1.jp),
+  url(../img/img2.jp);
   */
 }
 .input-box{
-  border: 1px solid grey;
-  border-radius: 5px;
+  /*border: 1px solid grey;
+  border-radius: 5px;*/
   padding: 2.5%;
 }
 .container {
@@ -139,6 +142,17 @@ button{
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+textarea.post {
+  height: 2em;
+  width: 50%;
+  padding: 3px;
+  transition: all 0.5s ease;
+  border-radius: 5px;
+}
+
+textarea.post:focus {
+  height: 4em;
+}
 .full-width {
   width: 100%;
 }
@@ -146,4 +160,22 @@ button{
   margin-left:2.5%;
   border: none;
   width:91.5%;
+}
+.content-text{
+  display: inline-block;
+  width: 80%;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 2.5%;
+  min-height: 30px;
+  /*background-color: blue;*/
+
+}
+.content-image{
+  display: inline-block;
+  width: 20%;
+  margin: 0px;
+  padding: 0px;
+  min-height: 30px;
+  /*background-color: green;*/
 }

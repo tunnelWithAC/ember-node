@@ -1,25 +1,30 @@
 <div class="container post-container" style="">
-	<div class="sort">
-		{{#paper-button noink=true onClick=(action "sortVotes") primary=true}}Most Popular{{/paper-button}}
-		{{#paper-button noink=true onClick=(action "sortDate") primary=true}}Most Recent{{/paper-button}}
+
+<div class="wrapper" style="width:100%; text-align:center;">
+	<div class="btn-group" role="group" aria-label="Timeline options">
+		<button type="button" class="btn btn-secondary timeline-btn"  autofocus="true"{{action 'sortVotes'}}>Recent</button>
+		<button type="button" class="btn btn-secondary timeline-btn" {{action 'sortDate'}}>Most Popular</button>
 	</div>
-	<!-- <div class="circle"></div>  Only display circle on created posts -->
-	<div  class="">
-		<div class="input-box" style="">
-			{{input type="text" value=post maxlength="256" placeholder="Your post here"}}
-			{{#if postDirty}}
-			<br>
-			{{#paper-button noink=true onClick=(action "addPost") primary=true}}Add{{/paper-button}}
-			<small>{{charactersRemaining}}</small>
-			{{/if}}
-		</div>
 
-
-		{{#each sortedPosts as |post index|}}
-		{{post-block post=post upvote=(action 'upvote') notPostRoute=true downvote=(action 'downvote')}}
-		{{#if isTrue "tst"}}
-		isTrue{{postvotes}}
+<br>
+<div  class="">
+	<div class="input-box" style="">
+		{{textarea class="post" rows="1" cols="10" value=post maxlength="256" placeholder="Your post here"}}
+		<button type="button" class="btn btn-secondary btn-sm" {{action 'addPost'}} disabled={{postClean}}>Add post</button>
+		{{#if postDirty}}
+		<div>
+		<small>{{charactersRemaining}} characters remaining</small>
+	</div>
 		{{/if}}
-		{{/each}}
 	</div>
+</div>
+<br>
+</div>
+	{{#each sortedPosts as |post index|}}
+	{{post-block post=post upvote=(action 'upvote') notPostRoute=true downvote=(action 'downvote')}}
+	{{#if isTrue "tst"}}
+	isTrue{{postvotes}}
+	{{/if}}
+	{{/each}}
+
 </div>

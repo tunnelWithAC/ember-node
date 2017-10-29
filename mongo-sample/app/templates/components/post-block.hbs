@@ -1,7 +1,7 @@
 <div  style="" class="container">
   <div class="content" style="">
 
-    <div class="container" styke="width:100%;">
+    <div class="container" style="width:100%;">
 
       <div class="content-image circle">
 
@@ -10,33 +10,10 @@
         {{post.text}}
       </div>
     </div>
-
-    <style>
-    .content-text{
-      display: inline-block;
-      width: 80%;
-      margin: 0px;
-      padding: 0px;
-      padding-left: 2.5%;
-      min-height: 30px;
-      /*background-color: blue;*/
-
-    }
-    .content-image{
-      display: inline-block;
-      width: 20%;
-      margin: 0px;
-      padding: 0px;
-
-      min-height: 30px;
-      /*background-color: green;*/
-    }
-    </style>
-
   </div>
   <div class="votes">
     {{post.votes}}
-    <br><span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span>
+
   </div>
   <div class="up-button">
     {{#if post.upvoted}}
@@ -52,14 +29,20 @@
     <button {{action "downvote" post.id}}>{{paper-icon "arrow-downward" size=18}} </button>
 
   </div>
-  <span class=" comments">
+  <div class="comments">
     {{#link-to "post" post.id }}
     <span class="comment-text">{{post.comments.length}}
     </span>
     <span class="comment-icon">{{paper-icon "chat-bubble-outline" size=18}}</span>
     {{/link-to}}
-    Follow button
-  </span>
+
+  </div>
+  <div class="follow">
+    Follow
+  </div>
+  <div class="post-age">
+    <span style="color:grey;" class="post-date">{{moment-from-now post.date }}</span>
+  </div>
 </div>
 {{#if isPostRoute}}
 <br>
@@ -72,5 +55,7 @@
 </div>
 {{/if}}
 {{#if notPostRoute}}
+<div clas="text-center">
 <hr class="post">
+</div>
 {{/if}}

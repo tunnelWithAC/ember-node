@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
   checkNotifications: function() {
   var interval = 10000;
     Ember.run.later(this, function() {
-      Ember.Logger.log("Notification");
+      //Ember.Logger.log("Notification");
       //this.notifyPropertyChange('currentTimePulse');
       this.checkNotifications();
       //this.toggleProperty('newNotification');

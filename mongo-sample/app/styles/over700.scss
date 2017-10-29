@@ -1,10 +1,26 @@
 @media screen and (min-width: 700px){
+  div.circle{
+    border-radius: 30px;
+    height: 60px;
+    width: 60px;
+    border: 1px solid grey;
+    display: inline-block;
+  }
+  div.input-main {
+    display: inline-block;
+    height: 40px;
+    padding-left: 2%;
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+    border: 1px solid grey;
+  }
+
+
   .container{
-    padding-top: 5%;
+
   }
   .post-container {
     max-width:700px;
-    padding-top:5%;
   }
   hr.post {
     width:600px;
@@ -18,10 +34,11 @@
       font-weight: bold;
   }
   .content {
-    width: 100%;
-    font-size: 16px;
+    width: 600px;
+    font-size: 14px;
+    line-height: 125%;
     order: 1;
-    padding-bottom: 1.5%;
+    padding-bottom: 3%;
     /*background-color: green;
     border: 1px solid black;*/
   }
@@ -35,6 +52,7 @@
     */
     order: 2;
     width: 15%;
+    max-width: 15%;
     padding-left: 2.5%;
     /*background-color: blue;*/
   }
@@ -42,10 +60,7 @@
   .up-button {
     order: 3;
     width: 10%;
-    height: 100%;
-    vertical-align: top;
-    text-align: right;
-    /*background-color: orange;*/
+    /*background-color: orange; */
   }
   .down-button {
     order: 4;
@@ -58,9 +73,22 @@
   .comments {
     /*border: 1px solid black;
     background-color: grey;*/
-    padding-left: 12%;
-    width: 65%;
+    padding-left: 7.5%;
+    width: 15%;
     order: 5;
+  }
+  .follow {
+    width: 50%;
+    order: 6;
+    text-align: right;
+    font-size: 10px;
+    padding-right: 6.25%;
+    color: cornflowerblue;
+  }
+  .post-age {
+    padding-left: 2.5%;
+    width: 100%;
+    order: 7;
   }
   /*
   .report {

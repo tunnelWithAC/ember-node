@@ -1,7 +1,7 @@
 <div class="flex-container">
   <div class="nav-item left-space"></div>
   <div class="nav-item refresh"><a {{action 'reload'}}> {{paper-icon 'sync'}} </a></div>
-  <div class="nav-item posts">{{#link-to "posts" }}Posts{{/link-to}}</div>
+  <div class="nav-item posts">{{#link-to "posts" }}Spu4{{/link-to}}</div>
   <div class="nav-item notification">{{notification-nav newNotification=newNotification}}</div>
   <div class="nav-item right-space"></div>
   <div class="nav-item login">
@@ -15,31 +15,5 @@
   </div>
 </div>
 
-{{#paper-toolbar}}
-  <div class="md-toolbar-tools">
-    <div class="">
-    {{#if session.isAuthenticated}}
-      {{notification-nav newNotification=newNotification}}
-    {{/if}}
-    </div>
-    <div class="paper-right">
 
-      {{#if session.isAuthenticated}}
-        {{#link-to "profile" }}{{paper-icon 'person'}}{{/link-to}}
-        {{#paper-button onClick=(action "logout")}}Logout{{/paper-button}}
-      {{else}}
-        {{#link-to "register" }}{{#paper-button}}Register{{/paper-button}}{{/link-to}}
-        {{#link-to "login" }}{{#paper-button raised=true}}Login{{/paper-button}}{{/link-to}}
-      {{/if}}
-    </div>
-  </div>
-{{/paper-toolbar}}
-
-<!--
-<div class="container full-width">
-
-<div class="block timeline-buttons"></div>
-</div class="login-logout"></div>
-</div>
--->
 {{outlet}}
